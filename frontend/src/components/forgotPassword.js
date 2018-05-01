@@ -6,7 +6,7 @@ import Button from './button';
 import Form from './form';
 
 
-class forgotPassword extends React.Component {
+class ForgotPassword extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -50,4 +50,4 @@ class forgotPassword extends React.Component {
 
     }
 }
-export default forgotPassword
+export default ForgotPassword

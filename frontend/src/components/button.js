@@ -2,7 +2,7 @@ import * as React from 'react';
 
 export default function Input(props) {
     return (
-        <div className="col-md-6 col-md-offset-3">
+        <div className="col-md-6">
             <button
                 className={props.className}
                 type='submit'

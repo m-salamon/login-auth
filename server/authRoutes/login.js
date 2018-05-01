@@ -10,21 +10,21 @@ import { emailSenderForgotPassword } from '../utils/emailSenderForgotPassword';
 router.post('/login', async (req, res) => {
      let user = await db.authHelpers.logIn(req.body);
      console.log('in heere', user)
-    // if (user) {
-    //     const signedId = {
-    //         userId: user.id
-    //     };
-    //     const token = jwt.sign(signedId, process.env.AUTH_SECRET, {
-    //         expiresIn: 60 * 60 * 24
-    //     });
-    //     res.json({
-    //         success: true,
-    //         token: token,
-    //         userIdType: user.userType
-    //     });
-    // } else {
-    //     res.status(403).send('Invalid Login');
-    // }
+    if (user) {
+        const signedId = {
+            userId: user.id
+        };
+        const token = jwt.sign(signedId, process.env.AUTH_SECRET, {
+            expiresIn: 60 * 60 * 24
+        });
+        res.json({
+            success: true,
+            token: token,
+            userIdType: user.userType
+        });
+    } else {
+        res.status(403).send('Invalid Login');
+    }
     
 })
 

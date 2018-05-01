@@ -1,6 +1,6 @@
-import  bcrypt from 'bcryptjs';
-import crypto from 'crypto';
-import db from './index';
+var   bcrypt = require('bcryptjs')
+var crypto = require('crypto');
+var db = require( './index')
 
 
 function hashPassword(password) {
@@ -26,7 +26,7 @@ async function logIn(login) {
     return false;
 }
 
-export default{
+export default {
     hashPassword,
     getToken,
     comparePassword,

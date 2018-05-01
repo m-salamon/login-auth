@@ -1,5 +1,5 @@
 require('dotenv').config();
-import * as nodemailer from 'nodemailer';
+import nodemailer from 'nodemailer';
 
 export function sendTempToken(email, token, url) {
     let transporter = nodemailer.createTransport({

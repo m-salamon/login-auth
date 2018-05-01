@@ -1,6 +1,6 @@
-// var express = require('express');
-// var router = express.Router();
-
+var express = require('express');
+var router = express.Router();
+let users = require('./users')
 // /* GET home page. */
 // router.get('/', function(req, res, next) {
 //   res.render('index', { title: 'Express' });
@@ -9,15 +9,16 @@
 // module.exports = router;
 
 //var router = require('express-promise-router')();
-// var express = require('express');
-// var router = express.Router();
 
-// import users from './users';
+//import users from './users';
+/* GET home page. */
+router.get('/', function(req, res, next) {
+     res.render('index', { title: 'Express' });
+   });
+
+router.use('/users', users);
 
 
-// router.use('/users', users);
-
-
-// export { router };
+module.exports =  router
 
 

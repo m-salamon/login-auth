@@ -3,9 +3,7 @@ const router = express();
 import { Request, Response } from 'express';
 import * as db from '../repo';
 
-
-
-router.get('/:tempToken', async (req: Request, res: Response) => {
+router.get('/:tempToken', async (req, res) => {
     let status = {status: false};
     let verifying = await db.vendors.verifyTempToken(req.params.tempToken);
     if(verifying){
@@ -14,12 +12,6 @@ router.get('/:tempToken', async (req: Request, res: Response) => {
     let isVerfied = await db.vendors.setIsVerified(verifying.id, verifying);
     res.json(status);
 });
-
-
-
-
-
-
 
 
 
