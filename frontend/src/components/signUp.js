@@ -35,7 +35,8 @@ class SignUp extends React.Component {
         clearStorage();
 
         let addUser = await axios.post(api, this.state.signUp);
-        console.log('adduser'+ addUser)
+
+        console.log(addUser.data)
         if (addUser.data.success) {
             localStorage.setItem(addUser.data.userIdType, addUser.data.token);
             this.props.history.push(path);

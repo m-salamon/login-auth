@@ -2,6 +2,7 @@ require('dotenv').config();
 import nodemailer from 'nodemailer';
 
 export function sendTempToken(email, token, url) {
+
     let transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,
@@ -11,8 +12,6 @@ export function sendTempToken(email, token, url) {
             pass: process.env.EMAIL_PASSWORD
         }
     });
-
-
 
     let mailOptions = {
         from: process.env.EMAIL_NAME,

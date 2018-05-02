@@ -1,4 +1,9 @@
-require('dotenv').config();
+const result = require('dotenv').config();
+// if (result.error) {
+//   throw result.error
+// }
+// console.log(result.parsed)
+
 //import express from 'express';
 import bodyParser from 'body-parser';
 import { router } from './routes';
@@ -15,11 +20,11 @@ app.use(bodyParser.json());
 
 import index from './routes/index'
 
-require('dotenv').config();
 
 app.use('/', index);
 //app.use('/api', checkToken, router);
 app.use('/auth', authRouter);
+
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => console.log(`server is running on port ${port}`));

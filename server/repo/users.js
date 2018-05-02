@@ -2,6 +2,7 @@ import knex from './config';
 import authHelpers from './authHelpers';
 
 async function createUser(profile) {
+
     let hashed = await authHelpers.hashPassword(profile.password);
     profile.password = hashed;
     profile.tempToken = authHelpers.getToken();
@@ -48,7 +49,7 @@ function getCart(simchaId) {
         .select('v.firstName', 'v.lastName', 'v.email', 'v.service');
 }
 
-export default{
+export default {
     createUser,
     getTokenById,
     updateUserProfile,

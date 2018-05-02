@@ -29,9 +29,8 @@ async function verifyTempToken(tempToken) {
     return result;
 }
 async function checkUserNameEmail(email) {
-     console.log('in here')
-    const exists1 = await db.users.getUserByEmail(email);
-    if (exists1) {
+    const exists = await db.users.getUserByEmail(email);
+    if (exists) {
         return true;
     }
     return false;
@@ -41,7 +40,6 @@ async function updatePassword(id, newPassword, table) {
     return knex(table).update('password', hashed).where('id', id);
 
 }
-
 
 export default{
     createAndGetTempToken,

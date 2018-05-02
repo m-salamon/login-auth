@@ -7,12 +7,12 @@ function hashPassword(password) {
     return bcrypt.hash(password, 10);
 }
 
-function comparePassword(storedPassowrd, enteredPassword) {
-    return bcrypt.compare(enteredPassword, storedPassowrd);
-}
-
 function getToken() {
     return crypto.randomBytes(16).toString('hex');
+}
+
+function comparePassword(storedPassowrd, enteredPassword) {
+    return bcrypt.compare(enteredPassword, storedPassowrd);
 }
 
 async function logIn(login) {

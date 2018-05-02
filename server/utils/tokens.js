@@ -1,12 +1,9 @@
 import jwt from 'jsonwebtoken';
-import { Request, Response, NextFunction } from 'express'
+//import { Request, Response, NextFunction } from 'express'
 
 function createToken(userId) {
-    const tokenId = {
-        userId: userId
-    }
-    return jwt.sign(tokenId, process.env.AUTH_SECRET, {
-        expiresIn: 60 * 60 * 24
+    return jwt.sign({ userId }, process.env.AUTH_SECRET, {
+        expiresIn: 60 * 60 * 24 //set timout to 5 years
     });
 }
 
@@ -28,7 +25,7 @@ function checkToken(req, res, next) {
 
 }
 
-export default{
-    checkToken,
-    createToken
+module.exports = {
+    checkToken: checkToken,
+    createToken: createToken
 }

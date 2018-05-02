@@ -9,7 +9,7 @@ import { emailSenderForgotPassword } from '../utils/emailSenderForgotPassword';
 
 router.post('/login', async (req, res) => {
      let user = await db.authHelpers.logIn(req.body);
-     console.log('in heere', user)
+     console.log('in heere')
     if (user) {
         const signedId = {
             userId: user.id
