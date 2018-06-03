@@ -8,6 +8,7 @@ exports.up = function(knex, Promise) {
           table.string('email').unique();
           table.string('password');
           table.string('tempToken');
+          table.boolean('isVerified');
       });
 };
 

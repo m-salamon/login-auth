@@ -83,10 +83,6 @@ class Input extends React.Component{
         if (this.props.required) {
             required = <span>*</span>
         }
-        let checkbox;
-        if (this.props.type === 'checkbox' || this.props.type === 'radio') {
-            checkbox = ' ' + this.props.placeholder
-        }
 
         return (
             <div className="form-group">
@@ -100,9 +96,6 @@ class Input extends React.Component{
                     onBlur={this.blurHandler}
                     disabled={this.props.disabled}
                     value={this.props.value} />
-                <label>
-                    {checkbox}
-                </label>
             </div>);
 
     }

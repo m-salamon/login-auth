@@ -19,13 +19,11 @@ async function createAndGetTempToken(email) {
 }
 
 async function verifyTempToken(tempToken) {
-    let vendortk = await knex('vendorProfiles').select('id').where('tempToken', tempToken).first();
     let usertk = await knex('users').select('id').where('tempToken', tempToken).first();
     let result = {
-        id: (vendortk ? vendortk.id : usertk.id),
-        table: (vendortk ? 'vendorProfiles' : 'users')
+        id: usertk.id,
+        table: 'users'
     }
-
     return result;
 }
 async function checkUserNameEmail(email) {
@@ -41,9 +39,22 @@ async function updatePassword(id, newPassword, table) {
 
 }
 
+async function logIn(login) {
+    let userType = 'userId';
+    let user = await db.users.loginUser(login);
+    const final = (user);
+    if (final) {
+        final.userType = userType;
+        return final;
+    }
+    return false;
+}
+
+
 export default{
     createAndGetTempToken,
     verifyTempToken,
     updatePassword,
-    checkUserNameEmail
+    checkUserNameEmail,
+    logIn
 }

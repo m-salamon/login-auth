@@ -21,7 +21,7 @@ export default class Verify extends React.Component {
     render() {
         let renderThis;
         if (this.state.isVerified) {
-            renderThis = <Redirect to={'/'} />
+            renderThis = <Redirect to={'/login'} />
         }
         return (
 

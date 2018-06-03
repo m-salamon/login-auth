@@ -7,7 +7,7 @@ import Form from './form';
 import clearStorage from '../utils/clearLocalStorage';
 
 
-class Login extends React.Component{
+class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -30,10 +30,7 @@ class Login extends React.Component{
             clearStorage();
             localStorage.setItem('returning', 'true');
             localStorage.setItem(login.data.userIdType, login.data.token);
-            if (localStorage.getItem('vendorId')) {
-                this.props.history.push('/vendorSignUpServiceSelector');
-            } else
-                this.props.history.push('/profiles');
+            this.props.history.push('/');
         }
     }
 

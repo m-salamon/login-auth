@@ -12,7 +12,7 @@ export default class CreatePasswordInput extends React.Component {
                 confirmPassword: '',
             },
             pwNotMatch: false,
-            errorMessage: 'password dont match'
+            errorMessage: 'password does not match'
 
         }
     }
@@ -45,7 +45,6 @@ export default class CreatePasswordInput extends React.Component {
                 <Input value={this.props.value} name="password" placeholder='Password' onChange={this.changeHandler} onCustomvalidate={this.customvalidate} type='password' errorMessage='Password required' required />
                 <Input value={this.state.confirmPw.confirmPassword} name="confirmPassword" placeholder=' confirm Password' onCustomvalidate={this.customvalidate} onChange={this.changeHandler} type='password' errorMessage=' confirm Password required' required />
             </div>);
-
     }
 
 }

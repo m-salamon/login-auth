@@ -3,13 +3,14 @@ const router = express();
 import { Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import  db from '../repo';
-//import  authHelpers from '../repo/authHelpers';
 import { emailSenderForgotPassword } from '../utils/emailSenderForgotPassword';
 
 
 router.post('/login', async (req, res) => {
-     let user = await db.authHelpers.logIn(req.body);
+   
+     let user = await db.authRoutes.logIn(req.body);
      console.log('in heere')
+     return
     if (user) {
         const signedId = {
             userId: user.id
