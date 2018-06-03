@@ -14,7 +14,9 @@ class Login extends React.Component {
             login: {
                 email: '',
                 password: ''
-            }
+            },
+            error: false,
+            message: ''
         }
     }
 
@@ -30,15 +32,29 @@ class Login extends React.Component {
             clearStorage();
             localStorage.setItem('returning', 'true');
             localStorage.setItem(login.data.userIdType, login.data.token);
-            this.props.history.push('/');
+            //this.clear()
+            this.props.history.push('/profile');
+        }else{
+            this.setState({ error: true, message: login.data.message })
         }
+    }
+
+    clear = () => {
+        this.setState(prevState => ({
+            login: {
+                ...prevState.signup,
+                email: '',
+                password: '',
+            }
+        }));
     }
 
     render() {
         return (
             <div>
+                {this.state.message}
                 <Form submit={this.submit}>
-                    <Input value={this.state.login.email} name="email" placeholder='Email' onChange={this.changeHandler} type='text' errorMessage='Email required' required />
+                    <Input value={this.state.login.email} name="email" placeholder='Email' onChange={this.changeHandler} type='email' errorMessage='Email required' required />
                     <Input value={this.state.login.password} name="password" placeholder='password' onChange={this.changeHandler} type='password' errorMessage='Password required' required />
                     <Button buttonName='log in' className='btn btn-success' />
                 </Form>

@@ -1,11 +1,14 @@
-var express = require('express');
-var router = express.Router();
-var repo = require('../repo');
+var router = require('express-promise-router')()
+// var express = require('express');
+// var router = express.Router();
+
+import  db from '../repo';
 var  sendTempToken = require('../utils/emailSender');
 
 router.get('/getUserProfile', async (req, res) => {
     let profile = await db.users.getUserProfile(req.userId);
-    profile ? res.json({ success: profile }) : '';
+    console.log(profile)
+    profile ? res.json({ success: true, profile: profile }) : '';
 });
 router.get('/checkLog', async (req, res) => {
     let user = await db.users.check(req.userId);
@@ -14,4 +17,4 @@ router.get('/checkLog', async (req, res) => {
     }
 });
 
-module.exports = router;
+module.exports  =  router;

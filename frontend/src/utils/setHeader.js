@@ -1,5 +1,5 @@
 export default function setHeader() {
      return {
-         headers: { 'x-access-token': (localStorage.getItem('userId') || localStorage.getItem('vendorId')) }
+         headers: { 'x-access-token': (localStorage.getItem('userId')) }
      };
  }

@@ -2,31 +2,21 @@ import  express from 'express-promise-router';
 const router = express();
 import { Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
+import { createToken } from '../utils/tokens';
 import  db from '../repo';
 import { emailSenderForgotPassword } from '../utils/emailSenderForgotPassword';
 
 
 router.post('/login', async (req, res) => {
-   
      let user = await db.authRoutes.logIn(req.body);
-     console.log('in heere')
-     return
-    if (user) {
-        const signedId = {
-            userId: user.id
-        };
-        const token = jwt.sign(signedId, process.env.AUTH_SECRET, {
-            expiresIn: 60 * 60 * 24
-        });
-        res.json({
-            success: true,
-            token: token,
-            userIdType: user.userType
-        });
-    } else {
-        res.status(403).send('Invalid Login');
+    if (user && user.isVerified) {
+        res.json({success: true,token: createToken(user.id),userIdType: user.userType});
+    } else if (user && !user.isVerified) {
+        res.json({success: false,message: 'Plese verify your email' });
+    }else {
+        res.json({success: false, message: 'Cannot log In, Please check your email or password'});
+        //res.status(403).send('Invalid Login');
     }
-    
 })
 
 router.post('/forgotPassword', async (req, res) => {
@@ -36,7 +26,6 @@ router.post('/forgotPassword', async (req, res) => {
         emailSenderForgotPassword(req.body.email, createdtk.tempToken, 'resetPassword');
         success = true;
     }
-
     res.json({ success: success });
 })
 

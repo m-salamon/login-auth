@@ -3,12 +3,12 @@ import jwt from 'jsonwebtoken';
 
 function createToken(userId) {
     return jwt.sign({ userId }, process.env.AUTH_SECRET, {
-        expiresIn: 60 * 60 * 24 //set timout to 5 years
+        expiresIn: '1825d' //5 years
     });
 }
 
 function checkToken(req, res, next) {
-    const token = req.headers['x-access-token'];
+    const token = req.headers['x-access-token'];    
     if (token) {
         jwt.verify(token, process.env.AUTH_SECRET, (err, decoded) => {
             if (err) {

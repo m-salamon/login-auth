@@ -20,6 +20,8 @@ class SignUp extends React.Component {
                 password: ''
 
             },
+            error: false,
+            message: ''
         }
     }
 
@@ -34,16 +36,32 @@ class SignUp extends React.Component {
         clearStorage();
 
         let addUser = await axios.post(api, this.state.signUp);
+
         if (addUser.data.success) {
-            localStorage.setItem(addUser.data.userIdType, addUser.data.token);
-            this.props.history.push('/');
-            this.props.history.push(path);
+           // localStorage.setItem(addUser.data.userIdType, addUser.data.token); //wait for verify
+            // this.props.history.push('/');
+            // this.props.history.push(path);
+            this.clear()
+            this.setState({ message: 'Thanks for signing up, please verify your email' })
         }
+        this.setState({ errro: true, message: addUser.data.message })
     }
 
     submit = async () => {
-
         this.addUser('/auth/users/addUser', '/signup');
+    }
+
+    clear = () => {
+        this.setState(prevState => ({
+            signUp: {
+                ...prevState.signup,
+                firstName: '',
+                lastName: '',
+                phoneNumber: '',
+                email: '',
+                password: '',
+            }
+        }));
     }
 
     render() {
@@ -53,12 +71,13 @@ class SignUp extends React.Component {
 
         return (
             <div>
+                {this.state.message}
                 <Form submit={this.submit}>
                     {inputCreater('firstName', 'First Name', 'text', 'First Name required', false)}
                     {inputCreater('lastName', 'Last Name', 'text', 'Last Name required', false)}
                     {inputCreater('phoneNumber', 'Phone Number', 'text', 'Phone Number required', false)}
-                    <CreatePasswordInput onChange={this.changeHandler} value={this.state.signUp.password} />
                     {inputCreater('email', 'Email', 'text', 'Email required', false)} {/*change type to text and required true*/}
+                    <CreatePasswordInput onChange={this.changeHandler} value={this.state.signUp.password} />
                     <Button buttonName='Sign Up' className='btn btn-success' />
                 </Form>
             </div>

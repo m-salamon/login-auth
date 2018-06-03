@@ -9,6 +9,8 @@ class Main extends React.Component {
                 <p>In the main page!</p>
                 <button className="btn" ><Link to={'/login'}> Login </Link></button>
                 <button className="btn" ><Link to={'/signup'}> Sighnup </Link></button>
+                <button><Link to='/resetPassword'>resetPassword</Link></button>
+                <button><Link to='/forgotPassword'>forgotPassword</Link></button>
             </div>
         )
     }

@@ -1,6 +1,6 @@
 import express from 'express-promise-router';
 const authRouter = express();
-//import { Request, Response } from 'express';
+import { Request, Response } from 'express';
 import db from '../repo';
 import { sendTempToken } from '../utils/emailSender';
 import { createToken } from '../utils/tokens';
@@ -9,7 +9,8 @@ authRouter.post('/addUser', async (req, res) => {
 
     let count = await db.authRoutes.checkUserNameEmail(req.body.email);
     if (count) {
-        res.json({ success: false, message: 'An account with this email already exists' });
+        console.log(count)
+        res.json({ success: false, error: true, message: 'An account with this email already exists, Please Login In' });
         return;
     }
     let id = await db.users.createUser(req.body);

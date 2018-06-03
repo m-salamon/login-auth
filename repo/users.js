@@ -20,7 +20,7 @@ function getUserByEmail(email) {
     return knex('users').select('id').where('email', email).first();
 }
 function getUserProfile(id) {
-    return knex('users').select('firstName', 'lastName', 'phoneNumber', 'email').where('id', id).first();
+    return knex('users').select('*').where('id', id).first();
 }
 function updateUserProfile(object, id) {
     return knex('users').update(object).where('id', id);
@@ -40,14 +40,9 @@ async function loginUser(login) {
             return user;
         }
     }
+    
 }
-function getCart(simchaId) {
-    return knex('cart as c').join('simchas as s', 's.id', 'c.simchaId')
-        .join('users as u', 'u.id', 's.userId')
-        .join('vendorprofiles as v', 'v.id', 'c.vendorId')
-        .where('c.simchaId', simchaId)
-        .select('v.firstName', 'v.lastName', 'v.email', 'v.service');
-}
+
 
 export default {
     createUser,
@@ -55,7 +50,6 @@ export default {
     updateUserProfile,
     verifyTempToken,
     updateDbWithTokenIsVerified,
-    getCart,
     getUserByEmail,
     loginUser,
     getUserProfile,

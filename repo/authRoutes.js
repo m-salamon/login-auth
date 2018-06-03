@@ -41,6 +41,7 @@ async function updatePassword(id, newPassword, table) {
 
 async function logIn(login) {
     let userType = 'userId';
+
     let user = await db.users.loginUser(login);
     const final = (user);
     if (final) {
