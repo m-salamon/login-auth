@@ -87,7 +87,6 @@ class Input extends React.Component{
         return (
             <div className="form-group">
                 {error}
-                {required}
                 <input className={className}
                     type={this.props.type}
                     name={this.props.name}

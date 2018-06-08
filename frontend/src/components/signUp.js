@@ -21,7 +21,8 @@ class SignUp extends React.Component {
 
             },
             error: false,
-            message: ''
+            message: '',
+            success: ''
         }
     }
 
@@ -42,9 +43,10 @@ class SignUp extends React.Component {
             // this.props.history.push('/');
             // this.props.history.push(path);
             this.clear()
-            this.setState({ message: 'Thanks for signing up, please verify your email' })
+            this.setState({ success: addUser.data.success, message: addUser.data.message })
+        }else{
+            this.setState({ success: addUser.data.success, errror: true, message: addUser.data.message })
         }
-        this.setState({ errro: true, message: addUser.data.message })
     }
 
     submit = async () => {
@@ -69,9 +71,12 @@ class SignUp extends React.Component {
             return <Input value={this.state.signUp[name]} name={name} placeholder={placeholder} onChange={this.changeHandler} type={type} errorMessage={errorMessage} required={required} />
         }
 
+        const confirmPrompt = <div className="confirmPrompt"><p><strong>Confirm Yor Email Address</strong></p><p>{this.state.message}</p></div>
+
         return (
             <div>
-                {this.state.message}
+            {this.state.success && confirmPrompt}
+                {!this.state.success && this.state.message}
                 <Form submit={this.submit}>
                     {inputCreater('firstName', 'First Name', 'text', 'First Name required', false)}
                     {inputCreater('lastName', 'Last Name', 'text', 'Last Name required', false)}

@@ -10,13 +10,13 @@ authRouter.post('/addUser', async (req, res) => {
     let count = await db.authRoutes.checkUserNameEmail(req.body.email);
     if (count) {
         console.log(count)
-        res.json({ success: false, error: true, message: 'An account with this email already exists, Please Login In' });
+        res.json({ success: false, error: true, message: "Someone's already using that email. If that’s you, please Sign in."});
         return;
     }
     let id = await db.users.createUser(req.body);
     let result = await db.users.getTokenById(id[0]);
     sendTempToken(req.body.email, result.tempToken, 'verify');
-    res.json({ success: true, token: createToken(id[0]), userIdType: 'userId' });
+    res.json({ success: true, token: createToken(id[0]), userIdType: 'userId', message: `Thanks for Signing up, A confirmation email has been sent to ${req.body.email} Click on the confirmation link in the email to activate your account.`});
 });
 
 authRouter.get('/verify/:tempToken', async (req, res) => {
