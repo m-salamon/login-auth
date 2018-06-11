@@ -15,16 +15,20 @@ class ResetPassword extends React.Component{
             resetPw: {
                 password: '',
                 email: ''
-            }
+            },
+            error: false
         }
     }
 
     submit = async () => {
-        alert('reset pw was submitted');
         let tempToken = this.props.match.params.tempToken;
-        let updatedPW = axios.post(`/auth/login/resetPassword/${tempToken}`,{newPassword: this.state.resetPw.password});
-        this.props.history.push('/login');
+        let updatedPW = await axios.post(`/auth/login/resetPassword/${tempToken}`,{newPassword: this.state.resetPw.password});
+        if(updatedPW.data.success)
+            this.props.history.push('/login');
        
+        let error = Object.assign({}, this.state.error); 
+        error = true   
+        this.setState({error})    
     }
 
     changeHandler = (e) => {
@@ -37,7 +41,7 @@ class ResetPassword extends React.Component{
 
         return (
             <div>
-
+            {this.state.error && <div>Ooops sometihng went wrong, the link may have expired or is not valid.</div>}
                 <Form submit={this.submit}>
                     <div>Please enter a new password</div>
                     <CreatePasswordInput value={this.state.resetPw.password} onChange={this.changeHandler}  />

@@ -83,7 +83,12 @@ class Profile extends React.Component{
        
         return (
             <div className="container">
-            {this.state.readState.lastName}
+            {this.state.readState.firstName}<br/>
+            {this.state.readState.lastName}<br/>
+            {this.state.readState.phoneNumber}<br/>
+            {this.state.readState.email}<br/>
+            {this.state.readState.password}<br/>
+            {this.state.readState.isVerified}<br/>
                 <Form submit={() => console.log('form')}>
                     <h5>{button}</h5>
                     <h4>Edit Profile</h4>

@@ -1,34 +1,27 @@
-import jwt from 'jsonwebtoken';
-import { Request, Response, NextFunction } from 'express'
+require('dotenv').config();
+import nodemailer from 'nodemailer';
 
-function createToken(userId) {
-    const tokenId = {
-        userId: userId
-    }
-    return jwt.sign(tokenId, process.env.AUTH_SECRET, {
-        expiresIn: 60 * 60 * 24
+export function emailSenderForgotPassword(email, token, url) {
+    let transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+            user: process.env.EMAIL_NAME,
+            pass: process.env.EMAIL_PASSWORD
+        }
     });
-}
 
-function checkToken(req, res, next) {
-    const token = req.headers['x-access-token'];
-    if (token) {
-        jwt.verify(token, process.env.AUTH_SECRET, (err, decoded) => {
-            if (err) {
-                res.status(403).send({ error: "Token is no longer valid" });
-                return;
-            } else {
-                req.userId = decoded.userId;
-                next();
-            }
-        });
-    } else {
-        res.status(403).send({ error: "No token" });
-    }
-
-}
-
-export {
-    checkToken,
-    createToken
+    let mailOptions = {
+        from: process.env.EMAIL_NAME,
+        to: email,
+        subject: 'Verify Email Address',
+        html: `<div>Click below to create new password</div><button><a href="http://localhost:3000/${url}/${token}">update password</a></button>`
+    };
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return console.log('error: ', error);
+        }
+        console.log('Message %s sent: %s', info.messageId, info.response);
+    });
 }

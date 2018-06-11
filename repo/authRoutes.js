@@ -3,28 +3,22 @@ import  hashHelpers from './authHelpers';
 import db from './index';
 
 async function createAndGetTempToken(email) {
+    console.log(email)
     const tempToken = await hashHelpers.getToken();
-    let tokenAddedToVendor = await knex('vendorProfiles').update('tempToken', tempToken).where('email', email);
-    if (!tokenAddedToVendor) {
-        var tokenAddedToUser = await knex('users').update('tempToken', tempToken).where('email', email);
-    }
+    var tokenAddedToUser = await knex('users').update('tempToken', tempToken).where('email', email);
     let result = false;
-    if (tokenAddedToVendor || tokenAddedToUser) {
+    if (tokenAddedToUser) {
         result = true;
     }
-    return {
-        result: result,
-        tempToken: tempToken
-    }
+    return { result, tempToken}
 }
 
 async function verifyTempToken(tempToken) {
     let usertk = await knex('users').select('id').where('tempToken', tempToken).first();
-    let result = {
-        id: usertk.id,
-        table: 'users'
+    if(usertk){
+         return { id: usertk.id, table: 'users'}
     }
-    return result;
+    return false
 }
 async function checkUserNameEmail(email) {
     const exists = await db.users.getUserByEmail(email);
