@@ -40,12 +40,12 @@ class ForgotPassword extends React.Component {
                                 <Input value={this.state.email} name='email' placeholder='email' onChange={this.changeHandler} type='text' errorMessage='email is required' required />
                                 <Button buttonName='Submit' className='btn btn-success' /></div>
             }else if(this.state.submited){
-                formContent = <div><b>Check your email</b><br/> We've sent an email to {this.state.email}<br/> click the link in the email to reset your password. <br/> If you don't see the email, check other places it might be, like your junk, spam.</div>
+                formContent = <div><b>Check your email</b><br/> We've sent an email to {this.state.email}<br/> click the link in the email to reset your password. <br/> If you don't see the email check other places it might be, like your junk, spam.</div>
             }
 
         return (
             <div>
-            {!this.state.submited && this.state.error && <div>Ooops there was an error sending an email, please check the email and try again.</div>}
+            {!this.state.submited && this.state.error && <div>Ooops there was an error sending an email, please check the email address and try again.</div>}
                 <Form submit={this.submit}>
                     {formContent}
                 </Form>

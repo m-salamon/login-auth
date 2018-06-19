@@ -33,6 +33,7 @@ class Input extends React.Component{
         state.hasError = false;
 
         if (this.props.onCustomvalidate) {
+            
             let customBlurValidation = this.props.onCustomvalidate();
             let state = Object.assign(this.state);
             state.hasError = customBlurValidation.hasError;
@@ -40,16 +41,16 @@ class Input extends React.Component{
             this.setState(state);
         }
         let val = this.props.value;
+
         if (!val && this.props.required) {
             state.hasError = true;
             state.errorMessage = this.props.errorMessage;
-        } else {
-
-        }
+        } 
         if (val && this.props.name === 'email' && !validateEmail(val)) {
             state.hasError = true;
             state.errorMessage = 'Not valid email';
         }
+
         this.setState(state);
 
     }
@@ -57,7 +58,6 @@ class Input extends React.Component{
         if (this.props.formIsSubmited) {
             this.props.FormIsSubmited(false);
             this.submit();
-
         }
     }
 
@@ -83,6 +83,8 @@ class Input extends React.Component{
         if (this.props.required) {
             required = <span>*</span>
         }
+
+        console.log(this.state)
 
         return (
             <div className="form-group">

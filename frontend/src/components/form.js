@@ -5,11 +5,10 @@ import { connect, MapStateToPropsParam } from 'react-redux';
 import * as formSumbit from '../actions/actions';
 
 class Form extends React.Component {
+
     submitHandler = (e) => {
         e.preventDefault();
-
         this.props.FormIsSubmited(true);
-
     }
 
     checkIdShouldSubmit = () => {
@@ -18,6 +17,7 @@ class Form extends React.Component {
             this.props.FormIsSubmited(false);
         }
     }
+
 
     componentWillUpdate() {
         this.checkIdShouldSubmit();
@@ -31,7 +31,7 @@ class Form extends React.Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-md-4 col-md-offset-4" >
+                    <div className="col-md-4" >
                         <h3>{this.props.title}</h3>
                         <div className="form-horizontal">
                             <form onSubmit={this.submitHandler} >

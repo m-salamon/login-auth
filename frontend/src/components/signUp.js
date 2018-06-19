@@ -30,6 +30,7 @@ class SignUp extends React.Component {
     changeHandler = (e) => {
         let signUp = Object.assign({}, this.state.signUp);
         signUp[e.target.name] = e.target.value;
+       // console.log(e.target.value)
         this.setState({ signUp });
     }
 
@@ -39,15 +40,17 @@ class SignUp extends React.Component {
         let addUser = await axios.post(api, this.state.signUp);
 
         if (addUser.data.success) {
-           // localStorage.setItem(addUser.data.userIdType, addUser.data.token); //wait for verify
+            // localStorage.setItem(addUser.data.userIdType, addUser.data.token); //wait for verify
             // this.props.history.push('/');
             // this.props.history.push(path);
             this.clear()
             this.setState({ success: addUser.data.success, message: addUser.data.message })
-        }else{
+        } else {
             this.setState({ success: addUser.data.success, errror: true, message: addUser.data.message })
         }
     }
+
+    
 
     submit = async () => {
         this.addUser('/auth/users/addUser', '/signup');
@@ -66,24 +69,26 @@ class SignUp extends React.Component {
         }));
     }
 
+
     render() {
         const inputCreater = (name, placeholder, type, errorMessage, required) => {
-            return <Input value={this.state.signUp[name]} name={name} placeholder={placeholder} onChange={this.changeHandler} type={type} errorMessage={errorMessage} required={required} />
+            return <Input value={this.state.signUp[name]} name={name} placeholder={placeholder} 
+            onChange={this.changeHandler} type={type} errorMessage={errorMessage} required={required} />
         }
 
         const confirmPrompt = <div className="confirmPrompt"><p><strong>Confirm Yor Email Address</strong></p><p>{this.state.message}</p></div>
-
+       
         return (
             <div>
-            {this.state.success && confirmPrompt}
+                {this.state.success && confirmPrompt}
                 {!this.state.success && this.state.message}
                 <Form submit={this.submit}>
-                    {inputCreater('firstName', 'First Name', 'text', 'First Name required', false)}
-                    {inputCreater('lastName', 'Last Name', 'text', 'Last Name required', false)}
-                    {inputCreater('phoneNumber', 'Phone Number', 'text', 'Phone Number required', false)}
-                    {inputCreater('email', 'Email', 'text', 'Email required', false)} {/*change type to text and required true*/}
+                    {inputCreater('firstName', 'First Name', 'text', 'First Name required', true)}
+                    {inputCreater('lastName', 'Last Name', 'text', 'Last Name required', true)}
+                    {inputCreater('phoneNumber', 'Phone Number (optional)', 'text', 'Phone number required', false)}
+                    {inputCreater('email', 'Email', 'text', 'Email required', true)} {/*change type to text and required true*/}
                     <CreatePasswordInput onChange={this.changeHandler} value={this.state.signUp.password} />
-                    <Button buttonName='Sign Up' className='btn btn-success' />
+                    <Button buttonName='Sign Up' className='mt-3 btn btn-block float-right btn-success' />
                 </Form>
             </div>
         )

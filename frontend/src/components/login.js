@@ -56,7 +56,7 @@ class Login extends React.Component {
                 <Form submit={this.submit}>
                     <Input value={this.state.login.email} name="email" placeholder='Email' onChange={this.changeHandler} type='email' errorMessage='Email required' required />
                     <Input value={this.state.login.password} name="password" placeholder='password' onChange={this.changeHandler} type='password' errorMessage='Password required' required />
-                    <Button buttonName='log in' className='btn btn-success' />
+                    <Button buttonName='log in' className='mt-3 btn btn-block float-right btn-success' />
                 </Form>
             </div>
         )

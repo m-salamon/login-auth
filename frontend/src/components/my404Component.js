@@ -14,7 +14,7 @@ class My404Component extends React.Component {
      render() {
           return (
                <div>
-                    Ooooops route not found!
+                    Ooooops page not found!
             </div>
           )
 

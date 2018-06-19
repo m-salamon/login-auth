@@ -12,7 +12,7 @@ export default class CreatePasswordInput extends React.Component {
                 confirmPassword: '',
             },
             pwNotMatch: false,
-            errorMessage: 'password does not match'
+            errorMessage: ''
 
         }
     }
@@ -27,23 +27,40 @@ export default class CreatePasswordInput extends React.Component {
     }
 
     customvalidate = () => {
-        let hasError = this.state.pwNotMatch;
         let state = Object.assign({}, this.state);
         if (state.confirmPw.password !== state.confirmPw.confirmPassword && state.confirmPw.confirmPassword && state.confirmPw.password) {
-            hasError = true;
+            state.pwNotMatch = true
+            state.errorMessage = 'Password does not match'
+        }else if(state.confirmPw.password < 6 && state.confirmPw.confirmPassword && state.confirmPw.password){
+            state.pwNotMatch = true
+            state.errorMessage = 'Must be 6 or more characters'
+        }else{
+            state.pwNotMatch = false
+            state.errorMessage = ''
         }
+        console.log('password', state.confirmPw.password)
+
+        console.log('confirmPassword', state.confirmPw.confirmPassword)
+
+        
         this.setState(state);
+
         return {
-            hasError: hasError,
-            errorMessage: this.state.errorMessage
+            hasError: state.pwNotMatch,
+            errorMessage: state.errorMessage
         }
     }
 
     render() {
         return (
             <div>
-                <Input value={this.props.value} name="password" placeholder='Password' onChange={this.changeHandler} onCustomvalidate={this.customvalidate} type='password' errorMessage='Password required' required />
-                <Input value={this.state.confirmPw.confirmPassword} name="confirmPassword" placeholder=' confirm Password' onCustomvalidate={this.customvalidate} onChange={this.changeHandler} type='password' errorMessage=' confirm Password required' required />
+                <Input value={this.props.value} name="password" placeholder='Password' 
+                onChange={this.changeHandler} onCustomvalidate={this.customvalidate} type='password' 
+                errorMessage='Password required' required />
+                
+                <Input value={this.state.confirmPw.confirmPassword} name="confirmPassword" placeholder='Confirm Password' 
+                onChange={this.changeHandler} onCustomvalidate={this.customvalidate} type='password' 
+                errorMessage='Confirm Password required' required />
             </div>);
     }
 
