@@ -7,6 +7,16 @@ import { emailSenderForgotPassword } from '../utils/emailSenderForgotPassword';
 
 
 router.post('/login', async (req, res) => {
+
+    var ip = req.headers['x-forwarded-for'] ? req.headers['x-forwarded-for'].split(',').pop() : req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
+     if (ip.substr(0, 7) == "::ffff:") {
+          ip = ip.substr(7)
+     }
+
+     req.body.ip = ip
+
+     console.log(req.body)
+     
      let user = await db.authRoutes.logIn(req.body);
     if (user && user.isVerified) {
         res.json({success: true,token: createToken(user.id),userIdType: user.userType});

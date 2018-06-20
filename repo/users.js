@@ -33,14 +33,14 @@ async function check(id) {
     return user;
 }
 async function loginUser(login) {
-    let user = await knex('users').select().where('email', login.email).first();
+   let user = await knex('users').select().where('email', login.email).first();
     if (user) {
         let passwordsMatch = await authHelpers.comparePassword(user.password, login.password);
         if (passwordsMatch) {
+            await knex('users').update('ip', login.ip).where('email', login.email)
             return user;
         }
     }
-    
 }
 
 
