@@ -13,7 +13,7 @@ exports.up = function(knex, Promise) {
           table.string('ip').notNullable()
           table.boolean('blackList').notNullable()
           table.timestamp('createdAt').default(knex.fn.now())
-          table.string('timeStamp').default(knex.fn.now())
+          table.timestamp('timeStamp').default(knex.fn.now())
       });
 };
 

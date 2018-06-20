@@ -12,8 +12,11 @@ class Check extends React.Component{
         }
     }
     async componentWillMount() {
+
+ 
         try {
-            await axios.get('/api/users/checkLog', setHeader());
+            var logedIn = await axios.get('/api/users/checkLog', setHeader());
+            console.log(logedIn)
             if (this.props.children) {
                 this.state.redirect = this.props.children;
             }
@@ -27,6 +30,9 @@ class Check extends React.Component{
         this.setState(this.state);
     }
     render() {
+
+        console.log(this.props.children)
+
         return (<div>{this.state.redirect}</div>);
     }
 }

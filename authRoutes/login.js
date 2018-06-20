@@ -15,9 +15,7 @@ router.post('/login', async (req, res) => {
 
      req.body.ip = ip
 
-     console.log(req.body)
-     
-     let user = await db.authRoutes.logIn(req.body);
+    let user = await db.authRoutes.logIn(req.body);
     if (user && user.isVerified) {
         res.json({success: true,token: createToken(user.id),userIdType: user.userType});
     } else if (user && !user.isVerified) {

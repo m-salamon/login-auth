@@ -11,18 +11,27 @@ import forgotPassword from './components/forgotPassword';
 import resetPassword from './components/resetPassword';
 import Profile from './screens/profile';
 import My404Component from './components/my404Component';
+import Check from './utils/checkIFLoggedIn';
 
 class App extends Component {
+
+   
+
   render() {
+    
     return (
       <div className="App">
+      <Check />
         <BrowserRouter>
         <Switch>
+        
             <Route exact path="/" component={Main} />
             <Route exact path="/login" component={Login} />
             <Route path="/resetPassword/:tempToken" component={ResetPassword} />
             <Route path="/forgotPassword" component={ForgotPassword} />
             <Route exact path="/signup" component={SignUp} />
+
+            
             <Route path="/verify/:token" component={Verify} />
             <Route path="/verifyEmail/:tempToken" component={VerifyEmail} />
             <Route path="/resetPassword/:tempToken" component={resetPassword} />
