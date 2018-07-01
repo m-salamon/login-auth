@@ -11,20 +11,19 @@ import forgotPassword from './components/forgotPassword';
 import resetPassword from './components/resetPassword';
 import Profile from './screens/profile';
 import My404Component from './components/my404Component';
-import Check from './utils/checkIFLoggedIn';
+import PrivateRoute from './utils/checkIFLoggedIn';
 
-import axios from 'axios';
-import setHeader from './utils/checkIFLoggedIn'
 
 class App extends Component {
 
+
+  
   render() {
 
     return (
       <div className="App">
         <BrowserRouter>
           <Switch>
-           
             <Route exact path="/" component={Main} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/forgotPassword" component={ForgotPassword} />
@@ -35,7 +34,7 @@ class App extends Component {
             <Route exact path="/resetPassword/:tempToken" component={resetPassword} />
             <Route exact path="/forgotPassword" component={forgotPassword} />
 
-            <Check exact path="/profile" component={Profile} />
+            <PrivateRoute exact path="/profile" component={Profile} />
             <Route component={My404Component} />
           </Switch>
         </BrowserRouter>

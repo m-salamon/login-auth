@@ -30,6 +30,7 @@ function updateDbWithTokenIsVerified(id) {
 }
 async function check(id) {
     let user = await knex('users').where('id', id).select()
+    console.log('user', user)
     return user;
 }
 async function loginUser(login) {
