@@ -18,7 +18,6 @@ class Form extends React.Component {
         }
     }
 
-
     componentWillUpdate() {
         this.checkIdShouldSubmit();
     }
@@ -41,7 +40,6 @@ class Form extends React.Component {
                     </div>
                 </div>
             </div>
-
         )
     }
 }

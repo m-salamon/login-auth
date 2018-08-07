@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { RouteComponentProps, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 export default class Verify extends React.Component {

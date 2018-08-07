@@ -1,9 +1,7 @@
-import React from 'react';
+import React, {Component} from 'react';
 import axios from 'axios';
-import { RouteComponentProps } from 'react-router-dom';
 
-
-class verifyEmail extends React.Component{
+class verifyEmail extends Component{
     constructor(){
         super();
         this.state = {
@@ -31,7 +29,6 @@ class verifyEmail extends React.Component{
                 {verified}
             </div>
         )
-
     }
 }
 
