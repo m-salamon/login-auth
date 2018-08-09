@@ -10,8 +10,11 @@ router.get('/getUserProfile', async (req, res) => {
 });
 router.get('/checkLog', async (req, res) => {
     let user = await db.users.check(req.userId);
+    console.log('user', user)
     if(user){
-        res.json({ logIn: true });
+        res.json({ isLoggedIn: true });
+    }else{
+        res.json({ isLoggedIn: false });
     }
 });
 

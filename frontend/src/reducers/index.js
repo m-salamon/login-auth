@@ -3,12 +3,14 @@ import errors from './errors';
 import formIsSubmited from './formIsSubmitted';
 import shouldSubmit from './shouldSubmit'
 import spinnerReducer  from './spinner';
+import checkIFLoggedIn  from './checkIFLoggedIn';
 
 const rootReducer = combineReducers({
    errors,
     formIsSubmited,
    shouldSubmit,
-   spinnerReducer
+   spinnerReducer,
+   checkIFLoggedIn
 });
 
 export default rootReducer;

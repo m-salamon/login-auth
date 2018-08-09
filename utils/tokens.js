@@ -13,16 +13,19 @@ function checkToken(req, res, next) {
     if (token != 'null') {
         jwt.verify(token, process.env.AUTH_SECRET, (err, decoded) => {
             if (err) {
+                console.log('its not null err', err)
                 res.status(403).send({ error: "Token is no longer valid" });
                 return;
             } else {
+                console.log('its not null err')
+
                 req.userId = decoded.userId;
                 next();
             }
         });
     } else {
         console.log('hey')
-       // res.json({ logIn: false });
+       // res.json({ isLoggedIn: false });
         res.status(403).end()
     }
 

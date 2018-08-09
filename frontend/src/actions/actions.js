@@ -1,4 +1,6 @@
 import * as types from './types';
+import axios from 'axios';
+import setHeader from '../utils/setHeader';
 
 function addErrorsSuccess(errorObj) {
   return dispatch => {
@@ -23,23 +25,36 @@ function addShouldSubmit(shouldSubmitObj) {
   }
 }
 
-  function changeShouldSubmit(shouldSubmitObj) {
-    return dispatch => {
-      dispatch({ type: types.CHANGE_SHOULD_SUBMIT, payload: shouldSubmitObj })
+function changeShouldSubmit(shouldSubmitObj) {
+  return dispatch => {
+    dispatch({ type: types.CHANGE_SHOULD_SUBMIT, payload: shouldSubmitObj })
+  }
+}
+
+function clearShouldSubmit() {
+  return dispatch => {
+    dispatch({ type: types.CLEAR_SHOULD_SUBMIT, payload: [] })
+  }
+}
+
+function checkIFLoggedIn(data) {
+  console.log('data', data)
+  return async dispatch => {
+    try {
+      let response = await axios.get(`/api/users/checkLog`, setHeader());
+      dispatch({ type: types.CHECK_IF_LOGGEDIN, payload: response.data })
+    } catch (e) {
+      dispatch({ type: types.CHECK_IF_LOGGEDIN, payload: { isLoggedIn: false } })
     }
   }
+}
 
-  function clearShouldSubmit() {
-    return dispatch => {
-      dispatch({ type: types.CLEAR_SHOULD_SUBMIT, payload: [] })
-    }
-  }
-
-  export {
-    addErrorsSuccess,
-    removeErrorSuccess,
-    FormIsSubmited,
-    addShouldSubmit,
-    changeShouldSubmit,
-    clearShouldSubmit
-  }
+export {
+  addErrorsSuccess,
+  removeErrorSuccess,
+  FormIsSubmited,
+  addShouldSubmit,
+  changeShouldSubmit,
+  clearShouldSubmit,
+  checkIFLoggedIn
+}

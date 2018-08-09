@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import * as actions from '../actions/actions';
 import Input from '../components/input';
 import Button from '../components/button';
 import Form from '../components/form';
@@ -30,11 +32,13 @@ class Login extends React.Component {
         let login = await axios.post('/auth/login/login', this.state.login);
         if (login.data.success) {
             clearStorage();
-            localStorage.setItem('returning', 'true');
-            localStorage.setItem(login.data.userIdType, login.data.token);
+            await localStorage.setItem('returning', 'true');
+            await localStorage.setItem(login.data.userIdType, login.data.token);
             //this.clear()
+            var a = await this.props.CheckIFLoggedIn({isLoggedin: true})
+            console.log('aaa', a)
             this.props.history.push('/profile');
-        }else{
+        } else {
             this.setState({ error: true, message: login.data.message })
         }
     }
@@ -63,4 +67,16 @@ class Login extends React.Component {
 
     }
 }
-export default Login
+
+function mapStateToProps({ checkIFLoggedIn }) {
+    console.log('checkIFLoggedIn', checkIFLoggedIn)
+    return { checkIFLoggedIn: checkIFLoggedIn.checkIFLoggedIn }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        CheckIFLoggedIn: (state) => dispatch(actions.checkIFLoggedIn(state))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

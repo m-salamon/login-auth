@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actions from './actions/actions';
 import Login from './screens/login';
 import SignUp from './screens/signUp';
 import ResetPassword from './screens/resetPassword';
@@ -12,6 +14,13 @@ import PrivateRoute from './utils/checkIFLoggedIn';
 
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  async componentWillMount() {
+    await this.props.CheckIFLoggedIn()
+  }
 
   render() {
     return (
@@ -24,6 +33,7 @@ class App extends Component {
               <Link to={'/signup'}><button className="btn">Signup</button> </Link>
               <Link to={'/resetPassword'}><button className="btn">Reset Password</button> </Link>
               <Link to={'/forgotPassword'}><button className="btn">Forgot Password</button> </Link>
+              <Link to={'/profile'}><button className="btn">Profile</button> </Link>
             </div>
             <Switch>
               <Route exact path="/login" component={Login} />
@@ -33,7 +43,7 @@ class App extends Component {
               <Route exact path="/verifyEmail/:tempToken" component={VerifyEmail} />
               <Route exact path="/forgotPassword" component={ForgotPassword} />
 
-              <PrivateRoute exact path="/profile" component={Profile} />
+              <PrivateRoute exact path="/profile" component={Profile} authed={this.props.checkIFLoggedIn} />
               <Route component={My404Component} />
             </Switch>
           </div>
@@ -43,4 +53,15 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps({ checkIFLoggedIn }) {
+  console.log('checkIFLoggedIn', checkIFLoggedIn)
+  return { checkIFLoggedIn: checkIFLoggedIn.isLoggedIn }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    CheckIFLoggedIn: (state) => dispatch(actions.checkIFLoggedIn(state))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
