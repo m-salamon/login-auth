@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Input from './input';
-import Button from './button';
-import Form from './form';
+import Input from '../components/input';
+import Button from '../components/button';
+import Form from '../components/form';
 import clearStorage from '../utils/clearLocalStorage';
 
 

@@ -2,7 +2,7 @@ import * as React from 'react';
 import Input from './input';
 import validateEmail from '../utils/checkEmail';
 import { connect, MapStateToPropsParam } from 'react-redux';
-import * as formSumbit from '../actions/actions';
+import * as actions from '../actions/actions';
 
 class Form extends React.Component {
 
@@ -52,8 +52,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        FormIsSubmited: (isSubmited) => dispatch(formSumbit.FormIsSubmited(isSubmited)),
-        clearShouldSubmit: () => dispatch(formSumbit.clearShouldSubmit())
+        FormIsSubmited: (state) => dispatch(actions.FormIsSubmited(state)),
+        clearShouldSubmit: () => dispatch(actions.clearShouldSubmit())
     }
 }
 

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import axios from 'axios';
 import { Link, Redirect, BrowserRouter, Route, RouteComponentProps } from 'react-router-dom';
-import Button from './button';
-import Form from './form';
-import Input from './input';
-import CreatePasswordInput from './createPasswordInput';
+import Button from '../components/button';
+import Form from '../components/form';
+import Input from '../components/input';
+import CreatePasswordInput from '../components/createPasswordInput';
 import clearStorage from '../utils/clearLocalStorage';
 
 

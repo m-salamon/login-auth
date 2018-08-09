@@ -1,11 +1,11 @@
 import  React from 'react';
-import Form from './form';
 import axios from 'axios';
-import Input from './input';
-import Button from './button';
 import { Link } from 'react-router-dom';
-import CreatePasswordInput from './createPasswordInput';
-import { ResetPasswordState } from  './form';
+import Input from '../components/input';
+import Form from '../components/form';
+import Button from '../components/button';
+import CreatePasswordInput from '../components/createPasswordInput';
+import { ResetPasswordState } from  '../components/form';
 
 
 class ResetPassword extends React.Component{

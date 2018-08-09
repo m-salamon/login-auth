@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
-import Login from './components/login';
-import ResetPassword from './components/resetPassword';
-import ForgotPassword from './components/forgotPassword';
-import SignUp from './components/signUp';
+import Login from './screens/login';
+import SignUp from './screens/signUp';
+import ResetPassword from './screens/resetPassword';
+import ForgotPassword from './screens/forgotPassword';
 import VerifyEmail from './components/verifyEmail';
 import Verify from './components/verify';
-import forgotPassword from './components/forgotPassword';
-import resetPassword from './components/resetPassword';
 import Profile from './screens/profile';
 import My404Component from './components/my404Component';
 import PrivateRoute from './utils/checkIFLoggedIn';
@@ -29,13 +27,11 @@ class App extends Component {
             </div>
             <Switch>
               <Route exact path="/login" component={Login} />
-              <Route exact path="/forgotPassword" component={ForgotPassword} />
               <Route exact path="/resetPassword/:tempToken" component={ResetPassword} />
               <Route exact path="/signup" component={SignUp} />
               <Route exact path="/verify/:token" component={Verify} />
               <Route exact path="/verifyEmail/:tempToken" component={VerifyEmail} />
-              <Route exact path="/resetPassword/:tempToken" component={resetPassword} />
-              <Route exact path="/forgotPassword" component={forgotPassword} />
+              <Route exact path="/forgotPassword" component={ForgotPassword} />
 
               <PrivateRoute exact path="/profile" component={Profile} />
               <Route component={My404Component} />

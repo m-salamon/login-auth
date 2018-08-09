@@ -1,9 +1,9 @@
 import * as React from 'react';
 import validateEmail from '../utils/checkEmail';
 import { connect } from 'react-redux';
-import * as errorsActions from '../actions/actions'
+import * as actions from '../actions/actions'
 
-class Input extends React.Component{
+class Input extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -33,7 +33,7 @@ class Input extends React.Component{
         state.hasError = false;
 
         if (this.props.onCustomvalidate) {
-            
+
             let customBlurValidation = this.props.onCustomvalidate();
             let state = Object.assign(this.state);
             state.hasError = customBlurValidation.hasError;
@@ -45,7 +45,7 @@ class Input extends React.Component{
         if (!val && this.props.required) {
             state.hasError = true;
             state.errorMessage = this.props.errorMessage;
-        } 
+        }
         if (val && this.props.name === 'email' && !validateEmail(val)) {
             state.hasError = true;
             state.errorMessage = 'Not valid email';
@@ -110,10 +110,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        removeErrorSuccess: (error) => dispatch(errorsActions.removeErrorSuccess(error)),
-        FormIsSubmited: (isSubmited) => dispatch(errorsActions.FormIsSubmited(isSubmited)),
-        addShouldSubmit: (reduxShouldSubmitObj) => dispatch(errorsActions.addShouldSubmit(reduxShouldSubmitObj)),
-        changeShouldSubmit: (reduxShouldSubmitObj) => dispatch(errorsActions.changeShouldSubmit(reduxShouldSubmitObj))
+        removeErrorSuccess: (state) => dispatch(actions.removeErrorSuccess(state)),
+        FormIsSubmited: (state) => dispatch(actions.FormIsSubmited(state)),
+        addShouldSubmit: (state) => dispatch(actions.addShouldSubmit(state)),
+        changeShouldSubmit: (state) => dispatch(actions.changeShouldSubmit(state))
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps, )(Input);
+export default connect(mapStateToProps, mapDispatchToProps)(Input);
