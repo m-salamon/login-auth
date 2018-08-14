@@ -1,7 +1,5 @@
 var router = require('express-promise-router')()
-
 import  db from '../repo';
-var  sendTempToken = require('../utils/emailSender');
 
 router.get('/getUserProfile', async (req, res) => {
     let profile = await db.users.getUserProfile(req.userId);
@@ -12,9 +10,9 @@ router.get('/checkLog', async (req, res) => {
     let user = await db.users.check(req.userId);
     console.log('user', user)
     if(user){
-        res.json({ isLoggedIn: true });
+        res.json({ authenticated: true });
     }else{
-        res.json({ isLoggedIn: false });
+        res.json({ authenticated: false });
     }
 });
 

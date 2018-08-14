@@ -9,8 +9,9 @@ import ForgotPassword from './screens/forgotPassword';
 import VerifyEmail from './components/verifyEmail';
 import Verify from './components/verify';
 import Profile from './screens/profile';
-import My404Component from './components/my404Component';
-import PrivateRoute from './utils/checkIFLoggedIn';
+import ErrorPage from './Essentials/ErrorPage';
+import PrivateRoute from './Essentials/PrivateRoute';
+import LogOut from './Essentials/LogOut';
 
 
 class App extends Component {
@@ -30,21 +31,24 @@ class App extends Component {
             <div>
               <p>In the main page!</p>
               <Link to={'/login'}><button className="btn">Login</button> </Link>
+              <Link to={'/logout'}><button className="btn">LogOut</button> </Link>
               <Link to={'/signup'}><button className="btn">Signup</button> </Link>
               <Link to={'/resetPassword'}><button className="btn">Reset Password</button> </Link>
               <Link to={'/forgotPassword'}><button className="btn">Forgot Password</button> </Link>
               <Link to={'/profile'}><button className="btn">Profile</button> </Link>
             </div>
             <Switch>
+              <Route exact path="/" component={Login} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/resetPassword/:tempToken" component={ResetPassword} />
               <Route exact path="/signup" component={SignUp} />
               <Route exact path="/verify/:token" component={Verify} />
               <Route exact path="/verifyEmail/:tempToken" component={VerifyEmail} />
               <Route exact path="/forgotPassword" component={ForgotPassword} />
+              <Route exact path="/logout" component={LogOut} />
 
               <PrivateRoute exact path="/profile" component={Profile} authed={this.props.checkIFLoggedIn} />
-              <Route component={My404Component} />
+              <Route component={ErrorPage} />
             </Switch>
           </div>
         </BrowserRouter>
@@ -54,8 +58,7 @@ class App extends Component {
 }
 
 function mapStateToProps({ checkIFLoggedIn }) {
-  console.log('checkIFLoggedIn', checkIFLoggedIn)
-  return { checkIFLoggedIn: checkIFLoggedIn.isLoggedIn }
+  return { checkIFLoggedIn: checkIFLoggedIn.authenticated }
 }
 
 function mapDispatchToProps(dispatch) {

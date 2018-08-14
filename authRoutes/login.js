@@ -3,7 +3,7 @@ const router = express();
 import { Request, Response } from 'express';
 import { createToken } from '../utils/tokens';
 import  db from '../repo';
-import { emailSenderForgotPassword } from '../utils/emailSenderForgotPassword';
+import { emailSender } from '../utils/emailSender';
 
 
 router.post('/login', async (req, res) => {
@@ -31,7 +31,7 @@ router.post('/forgotPassword', async (req, res) => {
     let success = false;
     if (createdtk.result) {
         console.log(createdtk)
-        emailSenderForgotPassword(req.body.email, createdtk.tempToken, 'resetPassword');
+        emailSender(req.body.email, createdtk.tempToken, 'resetPassword');
         success = true;
     }
     res.json({ success: success });

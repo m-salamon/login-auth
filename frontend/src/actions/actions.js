@@ -42,9 +42,9 @@ function checkIFLoggedIn(data) {
   return async dispatch => {
     try {
       let response = await axios.get(`/api/users/checkLog`, setHeader());
-      dispatch({ type: types.CHECK_IF_LOGGEDIN, payload: response.data })
+      dispatch({ type: types.AUTH_USER, payload: response.data })
     } catch (e) {
-      dispatch({ type: types.CHECK_IF_LOGGEDIN, payload: { isLoggedIn: false } })
+      dispatch({ type: types.AUTH_USER, payload: { authenticated: false } })
     }
   }
 }
