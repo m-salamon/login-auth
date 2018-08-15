@@ -3,7 +3,6 @@ import  hashHelpers from './authHelpers';
 import db from './index';
 
 async function createAndGetTempToken(email) {
-    console.log(email)
     const tempToken = await hashHelpers.getToken();
     var tokenAddedToUser = await knex('users').update('tempToken', tempToken).where('email', email);
     let result = false;
@@ -30,7 +29,6 @@ async function checkUserNameEmail(email) {
 async function updatePassword(id, newPassword, table) {
     let hashed = await hashHelpers.hashPassword(newPassword);
     return knex(table).update('password', hashed).where('id', id);
-
 }
 
 async function logIn(login) {

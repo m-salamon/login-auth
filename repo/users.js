@@ -2,17 +2,14 @@ import knex from './config';
 import authHelpers from './authHelpers';
 
 async function createUser(profile) {
-
     let hashed = await authHelpers.hashPassword(profile.password);
     profile.password = hashed;
     profile.tempToken = authHelpers.getToken();
     return knex('users').insert(profile).returning('id');
 }
-
 function getTokenById(id) {
     return knex('users').select('tempToken').where('id', id).first();
 }
-
 function verifyTempToken(tempToken) {
     return knex('users').select('id').where('tempToken', tempToken).first();
 }
@@ -43,8 +40,6 @@ async function loginUser(login) {
         }
     }
 }
-
-
 export default {
     createUser,
     getTokenById,

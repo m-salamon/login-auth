@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as actions from './actions/actions';
-import Login from './screens/login';
-import SignUp from './screens/signUp';
-import ResetPassword from './screens/resetPassword';
-import ForgotPassword from './screens/forgotPassword';
-import VerifyEmail from './components/verifyEmail';
-import Verify from './components/verify';
-import Profile from './screens/profile';
-import ErrorPage from './Essentials/ErrorPage';
-import PrivateRoute from './Essentials/PrivateRoute';
-import LogOut from './Essentials/LogOut';
+import * as actions from '../actions/actions';
+import Login from '../screens/login';
+import SignUp from '../screens/signUp';
+import ResetPassword from '../screens/resetPassword';
+import ForgotPassword from '../screens/forgotPassword';
+import VerifyEmail from '../components/verifyEmail';
+import Verify from '../components/verify';
+import Profile from '../screens/profile';
+import ErrorPage from './ErrorPage';
+import PrivateRoute from './PrivateRoute';
+import LogOut from './LogOut';
 
 
 class App extends Component {
@@ -20,7 +20,7 @@ class App extends Component {
   }
 
   async componentWillMount() {
-    await this.props.CheckIFLoggedIn()
+    await this.props.authenticated()
   }
 
   render() {
@@ -47,7 +47,7 @@ class App extends Component {
               <Route exact path="/forgotPassword" component={ForgotPassword} />
               <Route exact path="/logout" component={LogOut} />
 
-              <PrivateRoute exact path="/profile" component={Profile} authed={this.props.checkIFLoggedIn} />
+              <PrivateRoute exact path="/profile" component={Profile} authed={this.props.authenticated} />
               <Route component={ErrorPage} />
             </Switch>
           </div>
@@ -57,13 +57,13 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ checkIFLoggedIn }) {
-  return { checkIFLoggedIn: checkIFLoggedIn.authenticated }
+function mapStateToProps({ authenticated }) {
+  return { authenticated: authenticated.authenticated }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    CheckIFLoggedIn: (state) => dispatch(actions.checkIFLoggedIn(state))
+    authenticated: (state) => dispatch(actions.authenticated(state))
   }
 }
 

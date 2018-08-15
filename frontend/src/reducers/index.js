@@ -1,17 +1,13 @@
 import { combineReducers } from 'redux';
-import errors from './errors';
-import formIsSubmited from './formIsSubmitted';
-import shouldSubmit from './shouldSubmit'
-import spinnerReducer  from './spinner';
-import checkIFLoggedIn  from './checkIFLoggedIn';
+import { submitReducer, formISSubmitedReducer, signupErrorReducer } from './formReducer'
+import { authenticated, errorsReducer, spinnerReducer } from './utilsReducer'
 
 const rootReducer = combineReducers({
-   errors,
-    formIsSubmited,
-   shouldSubmit,
+   errorsReducer,
    spinnerReducer,
-   checkIFLoggedIn
+   authenticated,
+   formIsSubmited: formISSubmitedReducer,
+   shouldSubmit: submitReducer
 });
 
-export default rootReducer;
-
+export default rootReducer

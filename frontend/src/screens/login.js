@@ -35,7 +35,7 @@ class Login extends React.Component {
             await localStorage.setItem('returning', 'true');
             await localStorage.setItem(login.data.userIdType, login.data.token);
             //this.clear()
-            await this.props.CheckIFLoggedIn({isLoggedin: true})
+            await this.props.authenticated({authenticated: true})
             this.props.history.push('/profile');
         } else {
             this.setState({ error: true, message: login.data.message })
@@ -67,13 +67,13 @@ class Login extends React.Component {
     }
 }
 
-function mapStateToProps({ checkIFLoggedIn }) {
-    return { checkIFLoggedIn: checkIFLoggedIn.checkIFLoggedIn }
+function mapStateToProps({ authenticated }) {
+    return { authenticated: authenticated.authenticated }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        CheckIFLoggedIn: (state) => dispatch(actions.checkIFLoggedIn(state))
+        authenticated: (state) => dispatch(actions.authenticated(state))
     }
 }
 

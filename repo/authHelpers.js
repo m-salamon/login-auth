@@ -13,8 +13,6 @@ function comparePassword(storedPassowrd, enteredPassword) {
     return bcrypt.compare(enteredPassword, storedPassowrd);
 }
 
-
-
 export default {
     hashPassword,
     getToken,

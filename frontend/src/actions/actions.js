@@ -37,7 +37,7 @@ function clearShouldSubmit() {
   }
 }
 
-function checkIFLoggedIn(data) {
+function authenticated(data) {
   console.log('data', data)
   return async dispatch => {
     try {
@@ -56,5 +56,5 @@ export {
   addShouldSubmit,
   changeShouldSubmit,
   clearShouldSubmit,
-  checkIFLoggedIn
+  authenticated
 }
