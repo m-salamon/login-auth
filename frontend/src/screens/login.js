@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
@@ -6,10 +6,11 @@ import * as actions from '../actions/actions';
 import Input from '../components/input';
 import Button from '../components/button';
 import Form from '../components/form';
+import LoginAlert from '../components/LoginAlert';
 import clearStorage from '../utils/clearLocalStorage';
 
 
-class Login extends React.Component {
+class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -35,7 +36,7 @@ class Login extends React.Component {
             await localStorage.setItem('returning', 'true');
             await localStorage.setItem(login.data.userIdType, login.data.token);
             //this.clear()
-            await this.props.authenticated({authenticated: true})
+            await this.props.authenticated({ authenticated: true })
             this.props.history.push('/profile');
         } else {
             this.setState({ error: true, message: login.data.message })
@@ -55,8 +56,9 @@ class Login extends React.Component {
     render() {
         return (
             <div>
-                {this.state.message}
+
                 <Form submit={this.submit}>
+                    <LoginAlert message={this.state.message} />
                     <Input value={this.state.login.email} name="email" placeholder='Email' onChange={this.changeHandler} type='email' errorMessage='Email required' required />
                     <Input value={this.state.login.password} name="password" placeholder='password' onChange={this.changeHandler} type='password' errorMessage='Password required' required />
                     <Button buttonName='log in' className='mt-3 btn btn-block float-right btn-success' />

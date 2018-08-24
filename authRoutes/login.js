@@ -12,10 +12,10 @@ router.post('/login', async (req, res) => {
      if (ip.substr(0, 7) == "::ffff:") {
           ip = ip.substr(7)
      }
-
      req.body.ip = ip
 
     let user = await db.authRoutes.logIn(req.body);
+    console.log('user', user)
     if (user && user.isVerified) {
         res.json({success: true,token: createToken(user.id),userIdType: user.userType});
     } else if (user && !user.isVerified) {
