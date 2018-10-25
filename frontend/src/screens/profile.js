@@ -28,7 +28,6 @@ class Profile extends React.Component{
         }
         if (localStorage.getItem('userId')) {
             const update = await axios.post('api/users/updateUserProfile', this.state.readState, setHeader());
-            console.log(update);
             if (update) {
                 this.props.history.push('/');
                 return;
@@ -41,7 +40,6 @@ class Profile extends React.Component{
             this.state.readState.radius = null;
         }
         const update = await axios.post('api/vendors/updateVendorProfile', this.state.readState, setHeader());
-        console.log(update);
         if (update) {
             this.props.history.push('/');
         }

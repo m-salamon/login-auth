@@ -6,7 +6,7 @@ import Form from '../components/form';
 import Input from '../components/input';
 import CreatePasswordInput from '../components/createPasswordInput';
 import clearStorage from '../utils/clearLocalStorage';
-
+import LoginAlert from '../components/LoginAlert';
 
 class SignUp extends React.Component {
     constructor() {
@@ -30,27 +30,20 @@ class SignUp extends React.Component {
     changeHandler = (e) => {
         let signUp = Object.assign({}, this.state.signUp);
         signUp[e.target.name] = e.target.value;
-       // console.log(e.target.value)
         this.setState({ signUp });
     }
 
     addUser = async (api, path) => {
         clearStorage();
-
         let addUser = await axios.post(api, this.state.signUp);
 
         if (addUser.data.success) {
-            // localStorage.setItem(addUser.data.userIdType, addUser.data.token); //wait for verify
-            // this.props.history.push('/');
-            // this.props.history.push(path);
             this.clear()
             this.setState({ success: addUser.data.success, message: addUser.data.message })
         } else {
             this.setState({ success: addUser.data.success, errror: true, message: addUser.data.message })
         }
     }
-
-    
 
     submit = async () => {
         this.addUser('/auth/users/addUser', '/signup');
@@ -69,20 +62,20 @@ class SignUp extends React.Component {
         }));
     }
 
-
     render() {
         const inputCreater = (name, placeholder, type, errorMessage, required) => {
-            return <Input value={this.state.signUp[name]} name={name} placeholder={placeholder} 
-            onChange={this.changeHandler} type={type} errorMessage={errorMessage} required={required} />
+            return <Input value={this.state.signUp[name]} name={name} placeholder={placeholder}
+                onChange={this.changeHandler} type={type} errorMessage={errorMessage} required={required} />
         }
 
         const confirmPrompt = <div className="confirmPrompt"><p><strong>Confirm Yor Email Address</strong></p><p>{this.state.message}</p></div>
-       
+
         return (
             <div>
                 {this.state.success && confirmPrompt}
-                {!this.state.success && this.state.message}
+
                 <Form submit={this.submit}>
+                    {!this.state.success && this.state.message && <LoginAlert message={this.state.message} />}
                     {inputCreater('firstName', 'First Name', 'text', 'First Name required', true)}
                     {inputCreater('lastName', 'Last Name', 'text', 'Last Name required', true)}
                     {inputCreater('phoneNumber', 'Phone Number (optional)', 'text', 'Phone number required', false)}
@@ -92,7 +85,6 @@ class SignUp extends React.Component {
                 </Form>
             </div>
         )
-
     }
 }
 

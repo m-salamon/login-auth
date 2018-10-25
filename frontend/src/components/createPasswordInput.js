@@ -38,11 +38,7 @@ export default class CreatePasswordInput extends React.Component {
             state.pwNotMatch = false
             state.errorMessage = ''
         }
-        console.log('password', state.confirmPw.password)
 
-        console.log('confirmPassword', state.confirmPw.confirmPassword)
-
-        
         this.setState(state);
 
         return {
