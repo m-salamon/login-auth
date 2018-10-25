@@ -1,10 +1,8 @@
-import * as React from 'react';
-import Input from './input';
-import validateEmail from '../utils/checkEmail';
+import React, { Component, Fragment } from 'react';
 import { connect, MapStateToPropsParam } from 'react-redux';
 import * as actions from '../actions/actions';
 
-class Form extends React.Component {
+class Form extends Component {
 
     submitHandler = (e) => {
         e.preventDefault();

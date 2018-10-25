@@ -1,9 +1,9 @@
-import * as React from 'react';
+import React, { Component, Fragment } from 'react';
 import validateEmail from '../utils/checkEmail';
 import { connect } from 'react-redux';
 import * as actions from '../actions/actions'
 
-class Input extends React.Component {
+class Input extends Component {
     constructor() {
         super();
         this.state = {

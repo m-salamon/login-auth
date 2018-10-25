@@ -1,8 +1,8 @@
-import * as React from 'react';
+import React, { Component, Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
-export default class Verify extends React.Component {
+export default class Verify extends Component {
     constructor() {
         super();
         this.state = {
@@ -13,6 +13,7 @@ export default class Verify extends React.Component {
     async componentDidMount() {
         let token = this.props.match.params.token;
         let result = await axios.get(`/auth/users/verify/${token}`);
+        console.log('result', result)
         if (result.data.match) {
             this.setState({ isVerified: true });
         }
@@ -21,10 +22,9 @@ export default class Verify extends React.Component {
     render() {
         let renderThis;
         if (this.state.isVerified) {
-            renderThis = <Redirect to={'/login'} />
+            renderThis = <Redirect to={{ pathname: '/login', state: { message: 'You are succesfully verified, please login.'}}} />
         }
         return (
-
             <div>
                 {renderThis}
             </div>

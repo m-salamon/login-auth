@@ -1,8 +1,7 @@
-import * as React from 'react';
-import Input from './input';
-import validateEmail from '../utils/checkEmail';
+import React, { Component, Fragment } from 'react';
+import Input from './Input';
 
-export default class CreatePasswordInput extends React.Component {
+export default class CreatePasswordInput extends Component {
 
     constructor() {
         super()

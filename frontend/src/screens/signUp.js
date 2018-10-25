@@ -1,14 +1,13 @@
-import * as React from 'react';
+import React, { Component, Fragment } from 'react';
 import axios from 'axios';
-import { Link, Redirect, BrowserRouter, Route, RouteComponentProps } from 'react-router-dom';
-import Button from '../components/button';
-import Form from '../components/form';
-import Input from '../components/input';
-import CreatePasswordInput from '../components/createPasswordInput';
+import Button from '../components/Button';
+import Form from '../components/Form';
+import Input from '../components/Input';
+import CreatePasswordInput from '../components/CreatePasswordInput';
 import clearStorage from '../utils/clearLocalStorage';
 import LoginAlert from '../components/LoginAlert';
 
-class SignUp extends React.Component {
+class SignUp extends Component {
     constructor() {
         super();
         this.state = {
@@ -18,7 +17,6 @@ class SignUp extends React.Component {
                 lastName: '',
                 phoneNumber: '',
                 password: ''
-
             },
             error: false,
             message: '',
@@ -26,17 +24,15 @@ class SignUp extends React.Component {
         }
     }
 
-
     changeHandler = (e) => {
         let signUp = Object.assign({}, this.state.signUp);
         signUp[e.target.name] = e.target.value;
         this.setState({ signUp });
     }
 
-    addUser = async (api, path) => {
+    submit = async () => {
 
-        let response = await axios.post(api, this.state.signUp);
-
+        let response = await axios.post('/auth/users/addUser', this.state.signUp);
         if (response.data.success) {
             clearStorage();
             this.clear()
@@ -44,11 +40,6 @@ class SignUp extends React.Component {
         } else {
             this.setState({ success: response.data.success, error: true, message: response.data.message })
         }
-
-    }
-
-    submit = async () => {
-        this.addUser('/auth/users/addUser', '/signup')
     }
 
     clear = () => {
@@ -74,11 +65,10 @@ class SignUp extends React.Component {
             <div>
                 <Form submit={this.submit}>
                     <LoginAlert message={this.state.message} />
-                    {/* {!this.state.success && this.state.message && <LoginAlert message={this.state.message} />} */}
                     {inputCreater('firstName', 'First Name', 'text', 'First Name required', true)}
                     {inputCreater('lastName', 'Last Name', 'text', 'Last Name required', true)}
                     {inputCreater('phoneNumber', 'Phone Number (optional)', 'text', 'Phone number required', false)}
-                    {inputCreater('email', 'Email', 'text', 'Email required', true)} 
+                    {inputCreater('email', 'Email', 'text', 'Email required', true)}
                     <CreatePasswordInput onChange={this.changeHandler} value={this.state.signUp.password} />
                     <Button buttonName='Sign Up' className='mt-3 btn btn-block float-right btn-success' />
                 </Form>

@@ -1,12 +1,16 @@
 import express from 'express-promise-router';
 const router = express();
-import { Request, Response } from 'express';
 import { createToken } from '../utils/tokens';
 import db from '../repo';
 import { emailSender } from '../utils/emailSender';
-
+import _ from 'lodash'
 
 router.post('/login', async (req, res) => {
+
+    //check for empty
+    if (_.isEmpty(req.body.email) || _.isEmpty(req.body.password)) {
+        return
+    }
 
     var ip = req.headers['x-forwarded-for'] ? req.headers['x-forwarded-for'].split(',').pop() : req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
     if (ip.substr(0, 7) == "::ffff:") {
@@ -26,6 +30,12 @@ router.post('/login', async (req, res) => {
 })
 
 router.post('/forgotPassword', async (req, res) => {
+
+    //check for empty
+    if (_.isEmpty(req.body.email)) {
+        return
+    }
+
     let createdtk = await db.authRoutes.createAndGetTempToken(req.body.email);
     let success = false;
     if (createdtk.result) {

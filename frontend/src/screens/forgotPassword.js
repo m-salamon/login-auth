@@ -1,12 +1,11 @@
-import * as React from 'react';
+import React, { Component, Fragment } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import Input from '../components/input';
-import Button from '../components/button';
-import Form from '../components/form';
+import Input from '../components/Input';
+import Button from '../components/Button';
+import Form from '../components/Form';
 import LoginAlert from '../components/LoginAlert';
 
-class ForgotPassword extends React.Component {
+class ForgotPassword extends Component {
     constructor() {
         super();
         this.state = {

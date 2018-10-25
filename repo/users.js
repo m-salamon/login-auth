@@ -17,6 +17,7 @@ function getUserByEmail(email) {
     return knex('users').select('id').where('email', email).first();
 }
 function getUserProfile(id) {
+    console.log('id', id)
     return knex('users').select('*').where('id', id).first();
 }
 function updateUserProfile(object, id) {

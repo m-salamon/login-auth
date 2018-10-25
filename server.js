@@ -1,8 +1,4 @@
-const result = require('dotenv').config();
-// if (result.error) {
-//   throw result.error
-// }
-
+require('dotenv').config();
 
 var express = require('express');
 var app = express()

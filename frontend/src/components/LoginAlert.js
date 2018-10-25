@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 
 const LoginAlert = ({message}) => {
    return (
-      <div className="">
+      <div className="login-alert-wrapper">
          {message}
       </div>
    )

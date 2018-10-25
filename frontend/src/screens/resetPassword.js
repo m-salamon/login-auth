@@ -1,15 +1,13 @@
-import React from 'react';
+import React, { Component, Fragment } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import Input from '../components/input';
-import Form from '../components/form';
-import Button from '../components/button';
-import CreatePasswordInput from '../components/createPasswordInput';
-import { ResetPasswordState } from '../components/form';
+import { Redirect } from 'react-router-dom';
+import Form from '../components/Form';
+import Button from '../components/Button';
+import CreatePasswordInput from '../components/CreatePasswordInput';
 import LoginAlert from '../components/LoginAlert';
 
 
-class ResetPassword extends React.Component {
+class ResetPassword extends Component {
     constructor() {
         super();
         this.state = {
@@ -17,16 +15,18 @@ class ResetPassword extends React.Component {
                 password: '',
                 email: ''
             },
-            error: false
+            error: false,
+            isReset: false
         }
     }
 
     submit = async () => {
         let tempToken = this.props.match.params.tempToken;
         let updatedPW = await axios.post(`/auth/login/resetPassword/${tempToken}`, { newPassword: this.state.resetPw.password });
-        if (updatedPW.data.success){
-            this.props.history.push('/login')
-        }else{
+        console.log(updatedPW.data)
+        if (updatedPW.data.success) {
+            this.setState({ isReset: true });
+        } else {
             this.setState({ error: true })
         }
     }
@@ -38,18 +38,24 @@ class ResetPassword extends React.Component {
     }
 
     render() {
+        if (this.state.isReset) {
+            return (
+                <div>
+                    <Redirect to={{ pathname: '/login', state: { message: 'You have succesfully reset your password, please login.' } }} />
+                </div>
+            )
+        }
 
         return (
             <div>
                 <Form submit={this.submit}>
-                    {this.state.error && <LoginAlert message={'Ooops there was an error reseting your password.'} />}
+                    {this.state.error && <LoginAlert message={'Ooops there was an error reseting your password, your link has expired.'} />}
                     <div>Please enter a new password</div>
                     <CreatePasswordInput onChange={this.changeHandler} value={this.state.resetPw.password} />
                     <Button buttonName='Reset Password' className='btn btn-success' />
                 </Form>
             </div>
         )
-
     }
 }
 export default ResetPassword

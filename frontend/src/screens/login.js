@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
-import Input from '../components/input';
-import Button from '../components/button';
-import Form from '../components/form';
+import Input from '../components/Input';
+import Button from '../components/Button';
+import Form from '../components/Form';
 import LoginAlert from '../components/LoginAlert';
 import clearStorage from '../utils/clearLocalStorage';
 
@@ -20,6 +20,12 @@ class Login extends Component {
             },
             error: false,
             message: ''
+        }
+    }
+
+    componentDidMount() {
+        if (this.props.location.state && this.props.location.state.message) {
+            this.setState({ message: this.props.location.state.message })
         }
     }
 
@@ -43,6 +49,7 @@ class Login extends Component {
         }
     }
 
+
     clear = () => {
         this.setState(prevState => ({
             login: {
@@ -56,7 +63,6 @@ class Login extends Component {
     render() {
         return (
             <div>
-
                 <Form submit={this.submit}>
                     <LoginAlert message={this.state.message} />
                     <Input value={this.state.login.email} name="email" placeholder='Email' onChange={this.changeHandler} type='email' errorMessage='Email required' required />
