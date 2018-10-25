@@ -34,7 +34,7 @@ async function loginUser(login) {
     if (user) {
         let passwordsMatch = await authHelpers.comparePassword(user.password, login.password);
         if (passwordsMatch) {
-            await knex('users').update('ip', login.ip).update('timeStamp', knex.fn.now()).where('email', login.email)
+            await knex('users').update('ip', login.ip).update('updatedAt', knex.fn.now()).where('email', login.email)
             return user;
         }
     }

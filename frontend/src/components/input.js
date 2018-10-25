@@ -92,7 +92,8 @@ class Input extends React.Component {
                     name={this.props.name}
                     placeholder={this.props.placeholder}
                     onChange={this.changeHandler}
-                    onBlur={this.blurHandler}
+                    onFocus={this.blurHandler}
+                    onInput={this.blurHandler}
                     disabled={this.props.disabled}
                     value={this.props.value} />
             </div>);

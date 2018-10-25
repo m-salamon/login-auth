@@ -1,4 +1,5 @@
 import express from 'express-promise-router';
+import { Link } from 'react-router-dom';
 const authRouter = express();
 import { Request, Response } from 'express';
 import db from '../repo';
@@ -9,9 +10,10 @@ authRouter.post('/addUser', async (req, res) => {
 
     let count = await db.authRoutes.checkUserNameEmail(req.body.email);
     if (count) {
-        res.json({ success: false, error: true, message: "Someone's already using that email. If that’s you, please Sign in."});
+    res.json({ success: false, error: true, message: `Someone's already using that email. If that’s you, please Login.`});
         return;
     }
+    
     let id = await db.users.createUser(req.body);
     let result = await db.users.getTokenById(id[0]);
     emailSender(req.body.email, result.tempToken, 'verify');

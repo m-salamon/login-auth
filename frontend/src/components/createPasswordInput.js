@@ -18,7 +18,7 @@ export default class CreatePasswordInput extends React.Component {
     }
 
     changeHandler = (e) => {
-        if (e.target.name === 'password') {
+       if (e.target.name === 'password') {
             this.props.onChange(e);
         }
         let state = Object.assign({}, this.state);
@@ -31,7 +31,7 @@ export default class CreatePasswordInput extends React.Component {
         if (state.confirmPw.password !== state.confirmPw.confirmPassword && state.confirmPw.confirmPassword && state.confirmPw.password) {
             state.pwNotMatch = true
             state.errorMessage = 'Password does not match'
-        }else if(state.confirmPw.password < 6 && state.confirmPw.confirmPassword && state.confirmPw.password){
+        }else if((state.confirmPw.password.length < 6 || state.confirmPw.confirmPassword.length < 6) && state.confirmPw.password == state.confirmPw.confirmPassword){
             state.pwNotMatch = true
             state.errorMessage = 'Must be 6 or more characters'
         }else{

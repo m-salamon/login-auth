@@ -20,7 +20,6 @@ class ForgotPassword extends React.Component {
         let forgotPw = await axios.post(`/auth/login/forgotPassword`, { email: this.state.email });
         let state = Object.assign({}, this.state);
         if (forgotPw.data.success) {
-            console.log('submitted', forgotPw.data)
             state.submited = true;
         } else {
             state.error = true

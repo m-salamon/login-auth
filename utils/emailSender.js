@@ -12,7 +12,7 @@ export function emailSender(email, token, path) {
         } else if (path === 'resetPassword') {
             return {
                 subject: 'Reset password',
-                html: `<div>Click below to create new password</div><button><a href="${process.env.APP_URL}/${path}/${token}">update password</a></button>`
+                html: `<div>Click below to create new password</div><button><a href="${process.env.APP_URL}/${path}/${token}">Update Password</a></button>`
             }
         }else{
             console.log('Error: missing a path')

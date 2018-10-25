@@ -34,20 +34,21 @@ class SignUp extends React.Component {
     }
 
     addUser = async (api, path) => {
-        clearStorage();
-        let addUser = await axios.post(api, this.state.signUp);
 
-        if (addUser.data.success) {
+        let response = await axios.post(api, this.state.signUp);
+
+        if (response.data.success) {
+            clearStorage();
             this.clear()
-            this.setState({ success: addUser.data.success, message: addUser.data.message })
+            this.setState({ success: response.data.success, message: response.data.message })
         } else {
-            this.setState({ success: addUser.data.success, errror: true, message: addUser.data.message })
+            this.setState({ success: response.data.success, error: true, message: response.data.message })
         }
+
     }
 
     submit = async () => {
-        var response = await this.addUser('/auth/users/addUser', '/signup')
-        console.log('response', response)
+        this.addUser('/auth/users/addUser', '/signup')
     }
 
     clear = () => {
@@ -69,18 +70,15 @@ class SignUp extends React.Component {
                 onChange={this.changeHandler} type={type} errorMessage={errorMessage} required={required} />
         }
 
-        const confirmPrompt = <div className="confirmPrompt"><p><strong>Confirm Yor Email Address</strong></p><p>{this.state.message}</p></div>
-
         return (
             <div>
-                {this.state.success && confirmPrompt}
-
                 <Form submit={this.submit}>
-                    {!this.state.success && this.state.message && <LoginAlert message={this.state.message} />}
+                    <LoginAlert message={this.state.message} />
+                    {/* {!this.state.success && this.state.message && <LoginAlert message={this.state.message} />} */}
                     {inputCreater('firstName', 'First Name', 'text', 'First Name required', true)}
                     {inputCreater('lastName', 'Last Name', 'text', 'Last Name required', true)}
                     {inputCreater('phoneNumber', 'Phone Number (optional)', 'text', 'Phone number required', false)}
-                    {inputCreater('email', 'Email', 'text', 'Email required', true)} {/*change type to text and required true*/}
+                    {inputCreater('email', 'Email', 'text', 'Email required', true)} 
                     <CreatePasswordInput onChange={this.changeHandler} value={this.state.signUp.password} />
                     <Button buttonName='Sign Up' className='mt-3 btn btn-block float-right btn-success' />
                 </Form>

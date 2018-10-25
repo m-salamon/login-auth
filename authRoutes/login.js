@@ -15,10 +15,10 @@ router.post('/login', async (req, res) => {
     req.body.ip = ip
 
     let user = await db.authRoutes.logIn(req.body);
-    if (user && user.isVerified) {
+    if (user && user.isVerified == true) {
         res.json({ success: true, token: createToken(user.id), userIdType: user.userType });
-    } else if (user && user.isVerified) {
-        res.json({ success: false, message: 'Plese verify your email' });
+    } else if (user && user.isVerified  == false) {
+        res.json({ success: false, message: 'Plese verify your email address' });
     } else {
         res.json({ success: false, message: 'Cannot log In, Please check your email or password and try again.' });
         //res.status(403).send('Invalid Login');
