@@ -3,11 +3,11 @@ import * as types from '../actions/types';
 export function authenticated(state = [], action) {
     switch (action.type) {
         case types.AUTH_USER:
-            return { authenticated: true }
+            return  true 
         case types.UNAUTH_USER:
-            return { authenticated: false }
+            return  false 
         default:
-            return state || {}
+            return state || false
     }
 }
 

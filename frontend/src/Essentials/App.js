@@ -47,7 +47,7 @@ class App extends Component {
               <Route exact path="/forgotPassword" component={ForgotPassword} />
               <Route exact path="/logout" component={LogOut} />
 
-              <PrivateRoute exact path="/profile" component={Profile} authed={this.props.authenticated} />
+              <PrivateRoute exact path="/profile" component={Profile} authed={this.props.auth} />
               <Route component={ErrorPage} />
             </Switch>
           </div>
@@ -58,7 +58,7 @@ class App extends Component {
 }
 
 function mapStateToProps({ authenticated }) {
-  return { authenticated: authenticated.authenticated }
+  return { auth: authenticated }
 }
 
 function mapDispatchToProps(dispatch) {

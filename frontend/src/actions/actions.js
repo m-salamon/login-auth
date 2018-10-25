@@ -43,7 +43,7 @@ function authenticated(data) {
       let response = await axios.get(`/api/users/checkLog`, setHeader());
       dispatch({ type: types.AUTH_USER, payload: response.data })
     } catch (e) {
-      dispatch({ type: types.AUTH_USER, payload: { authenticated: false } })
+      dispatch({ type: types.UNAUTH_USER, payload: '' })
     }
   }
 }
