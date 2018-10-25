@@ -7,9 +7,8 @@ import { createToken } from '../utils/tokens';
 
 authRouter.post('/addUser', async (req, res) => {
 
-    let count = await db.authRoutes.checkUserNameEmail(req.body.email);
-    if (count) {
-        console.log(count)
+    let emailExists = await db.authRoutes.checkUserNameEmail(req.body.email);
+    if (emailExists) {
         res.json({ success: false, error: true, message: "Someone's already using that email. If that’s you, please Sign in."});
         return;
     }

@@ -15,7 +15,6 @@ router.post('/login', async (req, res) => {
      req.body.ip = ip
 
     let user = await db.authRoutes.logIn(req.body);
-    console.log('user', user)
     if (user && user.isVerified) {
         res.json({success: true,token: createToken(user.id),userIdType: user.userType});
     } else if (user && !user.isVerified) {
@@ -30,7 +29,6 @@ router.post('/forgotPassword', async (req, res) => {
     let createdtk = await db.authRoutes.createAndGetTempToken(req.body.email);
     let success = false;
     if (createdtk.result) {
-        console.log(createdtk)
         emailSender(req.body.email, createdtk.tempToken, 'resetPassword');
         success = true;
     }

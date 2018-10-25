@@ -84,8 +84,6 @@ class Input extends React.Component {
             required = <span>*</span>
         }
 
-        console.log(this.state)
-
         return (
             <div className="form-group">
                 {error}

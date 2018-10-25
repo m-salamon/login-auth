@@ -40,6 +40,5 @@ export function emailSender(email, token, path) {
         if (error) {
             return console.log('error: ', error);
         }
-        console.log('Message %s sent: %s', info.messageId, info.response);
     });
 }

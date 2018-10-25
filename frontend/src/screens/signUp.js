@@ -30,7 +30,6 @@ class SignUp extends React.Component {
     changeHandler = (e) => {
         let signUp = Object.assign({}, this.state.signUp);
         signUp[e.target.name] = e.target.value;
-       // console.log(e.target.value)
         this.setState({ signUp });
     }
 
@@ -53,7 +52,8 @@ class SignUp extends React.Component {
     
 
     submit = async () => {
-        this.addUser('/auth/users/addUser', '/signup');
+        var response = await this.addUser('/auth/users/addUser', '/signup')
+        console.log('response', response)
     }
 
     clear = () => {

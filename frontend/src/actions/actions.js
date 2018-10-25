@@ -38,7 +38,6 @@ function clearShouldSubmit() {
 }
 
 function authenticated(data) {
-  console.log('data', data)
   return async dispatch => {
     try {
       let response = await axios.get(`/api/users/checkLog`, setHeader());
