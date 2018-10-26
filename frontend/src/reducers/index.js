@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { submitReducer, formISSubmitedReducer, signupErrorReducer } from './formReducer'
+import { submitReducer, formISSubmitedReducer, userProfile } from './formReducer'
 import { authenticated, errorsReducer, spinnerReducer } from './utilsReducer'
 
 const rootReducer = combineReducers({
@@ -7,7 +7,8 @@ const rootReducer = combineReducers({
    spinnerReducer,
    authenticated,
    formIsSubmited: formISSubmitedReducer,
-   shouldSubmit: submitReducer
+   shouldSubmit: submitReducer,
+   userProfile
 });
 
 export default rootReducer

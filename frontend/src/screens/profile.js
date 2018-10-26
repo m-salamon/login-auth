@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import axios from '../utils/axios';
 import setHeader from '../utils/setHeader';
+import * as actions from '../actions/actions';
+import { connect } from 'react-redux';
 
 class Profile extends Component {
     constructor() {
@@ -11,21 +13,21 @@ class Profile extends Component {
     }
 
     user = async () => {
-        const profile = await axios.get('api/users/getUserProfile');
-        console.log('profile', profile)
-        const data = profile.data.profile;
-        const state = Object.assign({}, this.state);
-        state.readState = data;
-        this.setState(state);
+        var profile = this.props.profile
+        this.setState({readState: profile});
     }
-    async componentWillMount() {
-        if (localStorage.getItem('userId')) {
-            this.user();
-            return;
+    
+    componentWillMount() {
+        this.props.getUserProfile()
+    }
+    
+    componentWillReceiveProps(nextProps){
+        if(nextProps.profile){
+            this.setState({readState: nextProps.profile})
         }
     }
+    
     render() {
-
         return (
             <div className="container">
                 {this.state.readState.firstName}<br />
@@ -38,4 +40,15 @@ class Profile extends Component {
         )
     }
 }
-export default Profile;
+
+function mapStateToProps({ userProfile }) {
+    return { profile: userProfile.profile }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        getUserProfile: (state) => dispatch(actions.getUserProfile(state))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

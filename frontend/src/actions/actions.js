@@ -1,6 +1,8 @@
 import * as types from './types';
 import axios from 'axios';
 import setHeader from '../utils/setHeader';
+import clearStorage from '../utils/clearLocalStorage';
+
 
 function addErrorsSuccess(errorObj) {
   return dispatch => {
@@ -48,6 +50,31 @@ function authenticated(data) {
   }
 }
 
+function getUserProfile() {
+  return async dispatch => {
+    let response = await Axios('api/users/getUserProfile')
+    dispatch({ type: types.GET_USER_PROFILE, payload: response.data })
+  }
+}
+
+//helper functions
+async function Axios(path) {
+  try {
+    let response = await axios.get(path, setHeader());
+    console.log('response', response)
+    if (response.data.error == "TokenExpiredError") {
+      clearStorage();
+    } else if (response.data.error) {
+      clearStorage();
+    }
+    return response
+  } catch (e) {
+    console.log('Error', e)
+  }
+
+
+}
+
 export {
   addErrorsSuccess,
   removeErrorSuccess,
@@ -55,5 +82,6 @@ export {
   addShouldSubmit,
   changeShouldSubmit,
   clearShouldSubmit,
-  authenticated
+  authenticated,
+  getUserProfile
 }

@@ -1,4 +1,4 @@
-export default function clearStorage() {
-     localStorage.removeItem('userId');
-     localStorage.removeItem('returning');
- }
+// export default function clearStorage() {
+//      localStorage.removeItem('userId');
+//      localStorage.removeItem('returning');
+//  }

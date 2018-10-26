@@ -16,7 +16,7 @@ class LogOut extends Component {
     this.props.history.push('/login')
   }
   render() {
-    return <div>Bye Bye</div>
+    return <div></div>
   }
 }
 
