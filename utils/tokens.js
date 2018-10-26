@@ -3,7 +3,7 @@ import _ from 'lodash'
 
 export const createToken = (userId) => {
     return jwt.sign({ userId }, process.env.AUTH_SECRET, {
-        expiresIn: 60 * 60 //'1825d' //5 years
+        expiresIn: 30  //'1825d' //5 years
     });
 }
 

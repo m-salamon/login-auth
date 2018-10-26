@@ -63,9 +63,14 @@ async function Axios(path) {
     let response = await axios.get(path, setHeader());
     console.log('response', response)
     if (response.data.error == "TokenExpiredError") {
+      console.log('TokenExpiredError', response.data.error)
       clearStorage();
+      authenticated({ authenticated: false })
+      return {success: false}
     } else if (response.data.error) {
       clearStorage();
+      authenticated({ authenticated: false })    
+      return {success: false}  
     }
     return response
   } catch (e) {
