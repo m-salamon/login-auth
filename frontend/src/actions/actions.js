@@ -39,10 +39,25 @@ function clearShouldSubmit() {
   }
 }
 
-function authenticated(data) {
+function getUserProfile() {
+  return async dispatch => {
+    let response = await Axios('api/users/getUserProfile')
+    if(!response)
+      return
+
+    dispatch({ type: types.GET_USER_PROFILE, payload: response.data })
+  }
+}
+
+//UTILS FUNCTIONS
+
+function authenticate() {
   return async dispatch => {
     try {
       let response = await axios.get(`/api/users/checkLog`, setHeader());
+      if (response.data.error)
+        return dispatch({ type: types.UNAUTH_USER, payload: '' })
+
       dispatch({ type: types.AUTH_USER, payload: response.data })
     } catch (e) {
       dispatch({ type: types.UNAUTH_USER, payload: '' })
@@ -50,33 +65,18 @@ function authenticated(data) {
   }
 }
 
-function getUserProfile() {
-  return async dispatch => {
-    let response = await Axios('api/users/getUserProfile')
-    dispatch({ type: types.GET_USER_PROFILE, payload: response.data })
-  }
-}
-
-//helper functions
 async function Axios(path) {
   try {
     let response = await axios.get(path, setHeader());
-    console.log('response', response)
-    if (response.data.error == "TokenExpiredError") {
-      console.log('TokenExpiredError', response.data.error)
+    if (response.data.error) {
       clearStorage();
-      authenticated({ authenticated: false })
-      return {success: false}
-    } else if (response.data.error) {
-      clearStorage();
-      authenticated({ authenticated: false })    
-      return {success: false}  
+      authenticate()
+      return false 
     }
     return response
   } catch (e) {
-    console.log('Error', e)
+    console.log('Axios Error', e)
   }
-
 
 }
 
@@ -87,6 +87,6 @@ export {
   addShouldSubmit,
   changeShouldSubmit,
   clearShouldSubmit,
-  authenticated,
+  authenticate,
   getUserProfile
 }

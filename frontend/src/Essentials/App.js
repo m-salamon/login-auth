@@ -19,7 +19,7 @@ class App extends Component {
   }
 
   async componentWillMount() {
-    await this.props.authenticated()
+    await this.props.authenticate()
   }
 
   render() {
@@ -44,7 +44,7 @@ class App extends Component {
               <Route exact path="/forgotPassword" component={ForgotPassword} />
               <Route exact path="/logout" component={LogOut} />
 
-              <PrivateRoute exact path="/profile" component={Profile} authed={this.props.auth} />
+              <PrivateRoute exact path="/profile" component={Profile} authed={this.props.authenticated} />
               <Route component={ErrorPage} />
             </Switch>
           </div>
@@ -55,12 +55,12 @@ class App extends Component {
 }
 
 function mapStateToProps({ authenticated }) {
-  return { auth: authenticated }
+  return { authenticated: authenticated }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    authenticated: (state) => dispatch(actions.authenticated(state))
+    authenticate: (state) => dispatch(actions.authenticate(state))
   }
 }
 

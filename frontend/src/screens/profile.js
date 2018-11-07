@@ -42,7 +42,7 @@ class Profile extends Component {
 }
 
 function mapStateToProps({ userProfile }) {
-    return { profile: userProfile.profile }
+    return { profile: userProfile }
 }
 
 function mapDispatchToProps(dispatch) {

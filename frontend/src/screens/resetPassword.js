@@ -49,7 +49,7 @@ class ResetPassword extends Component {
         return (
             <div>
                 <Form submit={this.submit}>
-                    {this.state.error && <LoginAlert message={'Ooops there was an error reseting your password, your link has expired.'} />}
+                    {this.state.error && <LoginAlert message={'Ooops there was an error reseting your password, your link has expired. Please Send a new link to your email.'} />}
                     <div>Please enter a new password</div>
                     <CreatePasswordInput onChange={this.changeHandler} value={this.state.resetPw.password} />
                     <Button buttonName='Reset Password' className='btn btn-success' />

@@ -4,8 +4,8 @@ import * as types from '../actions/types';
 export function formISSubmitedReducer(state, action) {
     switch (action.type) {
         case types.FORM_IS_SUBMITTED:
-            return  action.payload;
-       
+            return action.payload;
+
         default:
             return false
     }
@@ -43,7 +43,7 @@ export function signupErrorReducer(state = [], action) {
 export function userProfile(state = [], action) {
     switch (action.type) {
         case types.GET_USER_PROFILE:
-             return action.payload
+            return action.payload.profile
         default:
             return state
     }
@@ -73,4 +73,3 @@ export function userProfile(state = [], action) {
 //           return state
 //     }
 //  }
- 

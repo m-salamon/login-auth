@@ -41,8 +41,8 @@ class Login extends Component {
             clearStorage();
             await localStorage.setItem('returning', 'true');
             await localStorage.setItem(login.data.userIdType, login.data.token);
-            //this.clear()
-            await this.props.authenticated({ authenticated: true })
+            this.clear()
+            await this.props.authenticate()
             this.props.history.push('/profile');
         } else {
             this.setState({ error: true, message: login.data.message })
@@ -75,13 +75,13 @@ class Login extends Component {
     }
 }
 
-function mapStateToProps({ authenticated }) {
-    return { authenticated: authenticated.authenticated }
+function mapStateToProps() {
+    
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        authenticated: (state) => dispatch(actions.authenticated(state))
+        authenticate: (state) => dispatch(actions.authenticate(state))
     }
 }
 

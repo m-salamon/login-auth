@@ -3,16 +3,15 @@ import _ from 'lodash'
 
 export const createToken = (userId) => {
     return jwt.sign({ userId }, process.env.AUTH_SECRET, {
-        expiresIn: 30  //'1825d' //5 years
+        expiresIn: 10  //'1825d' //5 years
     });
 }
 
 export const checkToken = (req, res, next) => {
     const token = req.headers['x-access-token'];
-    if (!_.isEmpty(token)) {
+    if (token && token !== 'null') {
         jwt.verify(token, process.env.AUTH_SECRET, (err, decoded) => {
             if (err) {
-                console.log(err)
                 res.json({ error: err.name });
                 return;
             } else {

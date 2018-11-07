@@ -38,7 +38,7 @@ export function emailSender(email, token, path) {
 
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-            return console.log('Error: ', error);
+            return console.log('Error Sending Email: ', error);
         }
     });
 }
